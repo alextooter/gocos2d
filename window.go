@@ -2,8 +2,8 @@ package gocos2d
 
 import (
 //	"errors"
-	"glfw"
-	gl "gogl/gl21"
+	"github.com/jteeuwen/glfw"
+	gl "github.com/chsc/gogl/gl21"
 )
 
 type window struct {
