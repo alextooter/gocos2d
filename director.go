@@ -8,7 +8,7 @@ import (
 It is used to initialize a openGL context and It maintains a stack of scenes.
 You are able to update and draw your scenes directly by calling Director.Update
 and Director.Draw in your game loop.*/
-type Director struct {
+type director struct {
 	currentScene	*Scene
 	sceneStack	[]Scene
 	glWindow	window
@@ -18,7 +18,7 @@ type Director struct {
 var directorInitialized = false
 
 //Director should be declared as a global variable to insure it does not fall out of scope.
-func CreateDirector() (director, error) {
+func CreateDirector() (*director, error) {
 	var d *director
 	if directorInitialized != true {
 		d = new(director); if d == nil {
