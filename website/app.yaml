@@ -1,0 +1,18 @@
+application: gocos2d-lib
+version: 1
+runtime: go
+api_version: go1
+
+handlers:
+- url: /img
+  static_dir: img
+- url: /js
+  static_dir: js
+- url: /css
+  static_dir: css
+- url: /favicon\.ico
+  static_files: img/favicon.ico
+  upload: img/favicon\.ico
+- url: /.*
+  script: _go_app
+

@@ -1,0 +1,927 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"C",
+				"Column	[]gordon.Row ν"
+			],
+			[
+				"c",
+				"Column	[]Row ν"
+			],
+			[
+				"d",
+				"Draw	 ƒ"
+			],
+			[
+				"b",
+				"buf	*Buffer ν"
+			],
+			[
+				"Co",
+				"ColorWhite	 Ɩ"
+			],
+			[
+				"co",
+				"ColorBlack	 Ɩ"
+			],
+			[
+				"bu",
+				"currentBuffer	*buffer ν"
+			],
+			[
+				"Color",
+				"ColorRed	 Ɩ"
+			],
+			[
+				"Col",
+				"ColorMagenta	 Ɩ"
+			],
+			[
+				"cy",
+				"ColorCyan	 Ɩ"
+			],
+			[
+				"tb",
+				"print_tb	 ƒ"
+			],
+			[
+				"col",
+				"ColorDefault	 Ɩ"
+			],
+			[
+				"re",
+				"ColorRed	 Ɩ"
+			],
+			[
+				"de",
+				"ColorDefault	 Ɩ"
+			],
+			[
+				"str",
+				"string	built-in ʈ"
+			],
+			[
+				"T",
+				"Trim	string ƒ"
+			],
+			[
+				"pi",
+				"println	 ƒ"
+			],
+			[
+				"run",
+				"rune	built-in ʈ"
+			],
+			[
+				"prin",
+				"print_tb	 ƒ"
+			],
+			[
+				"cel",
+				"CellBuffer	[]termbox.Cell ƒ"
+			],
+			[
+				"e",
+				"KeyEnter	 Ɩ"
+			],
+			[
+				"ru",
+				"running	built-in ν"
+			],
+			[
+				"st",
+				"strings	 package ρ"
+			],
+			[
+				"imp",
+				"import	import (...) ʂ"
+			],
+			[
+				"com",
+				"commandBuffer	[]rune ν"
+			],
+			[
+				"Ru",
+				"running	built-in ν"
+			],
+			[
+				"pr",
+				"print_tb	 ƒ"
+			],
+			[
+				"K",
+				"KeyBackspace2	 Ɩ"
+			],
+			[
+				"k",
+				"deleteKey	 ƒ"
+			],
+			[
+				"te",
+				"termbox	 package ρ"
+			],
+			[
+				"cu",
+				"curX	int ν"
+			],
+			[
+				"cur",
+				"curY	int ν"
+			],
+			[
+				"s",
+				"SetCursor	 ƒ"
+			],
+			[
+				"se",
+				"SetCell	 ƒ"
+			],
+			[
+				"cr",
+				"curY	int ν"
+			],
+			[
+				"ce",
+				"CellBuffer	[]termbox.Cell ƒ"
+			],
+			[
+				"al",
+				"InputAlt	 Ɩ"
+			],
+			[
+				"mi",
+				"Millisecond	 Ɩ"
+			],
+			[
+				"in",
+				"InputEsc	 Ɩ"
+			],
+			[
+				"cl",
+				"Clear	error ƒ"
+			],
+			[
+				"ke",
+				"KeyBackspace2	 Ɩ"
+			],
+			[
+				"x",
+				"cursorX	int ν"
+			],
+			[
+				"print",
+				"println	 ƒ"
+			],
+			[
+				"ma",
+				"maxY	int ν"
+			],
+			[
+				"curs",
+				"cursorX	int ν"
+			],
+			[
+				"curso",
+				"cursorY	int ν"
+			],
+			[
+				"Se",
+				"SetCursor	 ƒ"
+			],
+			[
+				"KeyA",
+				"KeyArrowDown	 Ɩ"
+			],
+			[
+				"KeyAr",
+				"KeyArrowUp	 Ɩ"
+			],
+			[
+				"i",
+				"Init	error ƒ"
+			],
+			[
+				"nu",
+				"numBlocksH	int ν"
+			],
+			[
+				"pri",
+				"println	 ƒ"
+			],
+			[
+				"colo",
+				"ColorDefault	 Ɩ"
+			],
+			[
+				"n",
+				"numBlocksW	int ν"
+			],
+			[
+				"max",
+				"maxPos	int ν"
+			],
+			[
+				"mid",
+				"midy	int ν"
+			],
+			[
+				"num",
+				"numBlocksH	int ν"
+			],
+			[
+				"M",
+				"maxWidth	int ν"
+			],
+			[
+				"bl",
+				"numBlocksW	int ν"
+			],
+			[
+				"buff",
+				"buffers	 ν"
+			],
+			[
+				"Bu",
+				"Buffer	struct ʈ"
+			],
+			[
+				"buffer",
+				"Buffer	struct ʈ"
+			],
+			[
+				"g",
+				"Grid	*blockGrid ν"
+			],
+			[
+				"blo",
+				"BlockXY	struct ʈ"
+			],
+			[
+				"int",
+				"int	built-in ʈ"
+			],
+			[
+				"fun",
+				"func http handler	func(rw, req) ʂ"
+			],
+			[
+				"R",
+				"ReadFile	[]byte, error ƒ"
+			],
+			[
+				"for",
+				"format	uint ν"
+			],
+			[
+				"Po",
+				"PointerStartGrab	struct ʈ"
+			],
+			[
+				"data",
+				"DataSource	struct ʈ"
+			],
+			[
+				"Eve",
+				"EventSource	struct ʈ"
+			],
+			[
+				"error",
+				"errors"
+			],
+			[
+				"even",
+				"eventLoop"
+			],
+			[
+				"w",
+				"Write	n int, err error ƒ"
+			],
+			[
+				"f",
+				"NewFile	*os.File ƒ"
+			],
+			[
+				"er",
+				"err	error ν"
+			],
+			[
+				"file",
+				"FileMode	uint32 ʈ"
+			],
+			[
+				"im",
+				"image	 package ρ"
+			],
+			[
+				"p",
+				"Println	n int, err error ƒ"
+			],
+			[
+				"he",
+				"header	[18]byte ν"
+			],
+			[
+				"Print",
+				"Printf	n int, err error ƒ"
+			],
+			[
+				"P",
+				"Println	n int, err error ƒ"
+			],
+			[
+				"Prin",
+				"Printf	n int, err error ƒ"
+			],
+			[
+				"m",
+				"mult	int ν"
+			],
+			[
+				"cha",
+				"char	element ν"
+			],
+			[
+				"char",
+				"chars	chan element ν"
+			],
+			[
+				"sort",
+				"sorted	[]element ν"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 369.0,
+		"selected_items":
+		[
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"GoSublime: ne",
+				"GoSublime: New Go File"
+			],
+			[
+				"GoSublime: new",
+				"GoSublime: New Go File"
+			],
+			[
+				"GoSublime: fm",
+				"GoSublime: Fmt and save"
+			],
+			[
+				"GoSublime: n",
+				"GoSublime: New Go File"
+			],
+			[
+				"GoSublime: run",
+				"GoSublime: Play/Run (current file only)"
+			],
+			[
+				"GoSublime: go",
+				"GoSublime: Install/Update MarGo and Gocode"
+			],
+			[
+				"GoSublime: ",
+				"GoSublime: Activate GsCommander"
+			],
+			[
+				"GoSublime: pac",
+				"GoSublime: Browse Packages"
+			],
+			[
+				"GoSublime: insta",
+				"GoSublime: Install/Update MarGo and Gocode"
+			],
+			[
+				"GoSublime: pa",
+				"GoSublime: Browse Packages"
+			],
+			[
+				"GoSublime: in",
+				"GoSublime: Install/Update MarGo and Gocode"
+			],
+			[
+				"GoSublime: b",
+				"GoSublime: Browse Packages"
+			],
+			[
+				"GoSublime: inst",
+				"GoSublime: Install/Update MarGo and Gocode"
+			],
+			[
+				"GoSublime: fmt",
+				"GoSublime: Fmt and save"
+			],
+			[
+				"GoSublime: ru",
+				"GoSublime: Run Tests"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				":s",
+				":w - Save"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"GoSublime:gs",
+				"GoSublime: Activate GsCommander"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"GoSublime: pla",
+				"GoSublime: Play/Run (current file only)"
+			],
+			[
+				"GoSublime: play",
+				"GoSublime: Play/Run (current file only)"
+			],
+			[
+				"GoSublime: bu",
+				"GoSublime: Open shell/build prompt"
+			],
+			[
+				"GoSublime: buil",
+				"GoSublime: Open shell/build prompt"
+			],
+			[
+				"GoSublime: bui",
+				"GoSublime: Open shell/build prompt"
+			],
+			[
+				"GoSublime: br",
+				"GoSublime: Browse Packages"
+			],
+			[
+				"GoSublime: sho",
+				"GoSublime: Show last build output"
+			],
+			[
+				"GoSublime: f",
+				"GoSublime: Play/Run (current file only)"
+			],
+			[
+				"GoSublime: r",
+				"GoSublime: Play/Run (current file only)"
+			],
+			[
+				"GoSublime:run",
+				"GoSublime: Play/Run (current file only)"
+			],
+			[
+				"GoSublime: pl",
+				"GoSublime: Open shell/build prompt"
+			],
+			[
+				"GoSublime: runn",
+				"GoSublime: Play/Run (current file only)"
+			],
+			[
+				"GoSublime: bro",
+				"GoSublime: Browse Files"
+			],
+			[
+				"GoSublime: io",
+				"GoSublime: Show documentation hint"
+			],
+			[
+				"GoSublime: doc",
+				"GoSublime: Show documentation hint"
+			],
+			[
+				"GoSublime: def",
+				"GoSublime: Goto Definition"
+			],
+			[
+				"GoSublime: brow",
+				"GoSublime: Browse Packages"
+			],
+			[
+				":",
+				"File: Close All"
+			]
+		],
+		"width": 453.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/gordon.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/api/buffer.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/api/gordon.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/event.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/buffers.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/README.md",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/main.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/util.go",
+		"/home/mortdeus/gohome/src/github.com/nsf/termbox-go/_demos/keyboard.go",
+		"/home/mortdeus/gohome/src/github.com/nsf/termbox-go/_demos/random_output.go",
+		"/home/mortdeus/gohome/src/github.com/nsf/termbox-go/api.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/gordon/eventhandler.go",
+		"/home/mortdeus/gohome/src/github.com/nsf/godit/line_edit_mode.go",
+		"/home/mortdeus/gohome/src/github.com/nsf/godit/godit.go",
+		"/home/mortdeus/gohome/src/github.com/nsf/termbox-go/_demos/random_output",
+		"/home/mortdeus/gohome/src/github.com/nsf/termbox-go/_demos/output.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/Gordon/client/gordon.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/Gordon/client/cmd/gordon.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/Gordon/client/init.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/Gordon/client/buffer_manager.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/Gordon/client/buffers.go",
+		"/home/mortdeus/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/mortdeus/gohome/src/github.com/nsf/godit/view_tree.go",
+		"/home/mortdeus/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/mortdeus/.config/sublime-text-2/Packages/User/GoSublime.sublime-settings",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/Gordon/client/cmd/buffers.go",
+		"/home/mortdeus/gohome/src/github.com/mortdeus/Gordon/client/cmd/grid.go",
+		"/home/mortdeus/.config/sublime-text-2/Packages/User/untitled.go",
+		"/home/mortdeus/google_appengine/goroot/src/pkg/github.com/mortdeus/Gordon/README.md",
+		"/usr/include/GLES2/gl2.h",
+		"/home/mortdeus/gohome/src/glo/go-gles2/untitled.c_",
+		"/home/mortdeus/gohome/src/glo/go-gles2/gles2.go",
+		"/home/mortdeus/gohome/src/glo/gles2/gles2_defs.go",
+		"/home/mortdeus/gohome/src/glo/gles2/gles2.go",
+		"/home/mortdeus/gohome/src/glo/gles2/gen.go",
+		"/home/mortdeus/Code/wayland/src/wayland-server.h",
+		"/home/mortdeus/Code/wayland/src/wayland-server-protocol.h",
+		"/home/mortdeus/gohome/src/go-wayland/wayland-server-api-1.0.txt",
+		"/home/mortdeus/gohome/src/go-wayland/server.go",
+		"/home/mortdeus/Code/wayland/src/wayland-client.h",
+		"/home/mortdeus/Code/wayland/src/wayland-client-protocol.h",
+		"/home/mortdeus/gohome/src/go-wayland/Client.go",
+		"/home/mortdeus/gohome/src/go-wayland/EventLoop.go",
+		"/home/mortdeus/gohome/src/go-wayland/EventSource.go",
+		"/home/mortdeus/gohome/src/go-wayland/Keyboard.go",
+		"/home/mortdeus/gohome/src/go-wayland/Client",
+		"/home/mortdeus/gohome/src/go-wayland/wayland-server-1_0-API.txt",
+		"/home/mortdeus/gohome/src/go-wayland/wayland.go",
+		"/home/mortdeus/.config/sublime-text-2/Packages/GoSublime/CHANGELOG.md",
+		"/home/mortdeus/gohome/src/go-wayland/wayland-api-1.0.txt",
+		"/home/mortdeus/Code/wayland/src/wayland-server.c",
+		"/home/mortdeus/Code/wayland/src/wayland-util.h",
+		"/home/mortdeus/Code/weston/src/matrix.h",
+		"/home/mortdeus/Code/weston/src/compositor.h",
+		"/home/mortdeus/Code/weston/src/evdev.h",
+		"/home/mortdeus/Code/sqlite.go",
+		"/home/mortdeus/gohome/src/go-wayland/client.go",
+		"/home/mortdeus/gohome/src/go-wayland/cursor.go",
+		"/home/mortdeus/Code/wayland/src/wayland-egl.h",
+		"/home/mortdeus/Code/wayland/src/wayland-private.h",
+		"/home/mortdeus/gohome/src/go-wayland/egl.go",
+		"/home/mortdeus/gohome/src/go-wayland/util.go",
+		"/home/mortdeus/gohome/src/go-wayland/version.go",
+		"/home/mortdeus/gohome/src/go-wayland/doc.go",
+		"/home/mortdeus/gohome/src/go-wayland/LICENSE",
+		"/home/mortdeus/gohome/src/wayland/wayland.go",
+		"/home/mortdeus/Code/wayland/TODO",
+		"/home/mortdeus/.config/sublime-text-2/Packages/GoSublime/USAGE.md",
+		"/home/mortdeus/.config/sublime-text-2/Packages/GoSublime/README.md",
+		"/home/mortdeus/Code/go/src/cmd/go/fmt.go",
+		"/home/mortdeus/freelance.txt",
+		"/home/mortdeus/gohome/src/test/const.go",
+		"/home/mortdeus/gohome/src/mortdeus-tga/go-tga/doc.go",
+		"/home/mortdeus/gohome/src/code.google.com/p/gocos2d/imagebank.go",
+		"/home/mortdeus/gohome/src/code.google.com/p/gocos2d/examples/gocos2d_examples.go",
+		"/home/mortdeus/gohome/src/tga/writer.go",
+		"/home/mortdeus/gohome/src/code.google.com/p/gocos2d/untitled.go",
+		"/home/mortdeus/gohome/src/code.google.com/p/gocos2d/tga/writer.go",
+		"/home/mortdeus/gohome/src/code.google.com/p/gocos2d/tga/doc.go",
+		"/home/mortdeus/Code/go/src/pkg/image/png/writer.go",
+		"/home/mortdeus/Code/go/src/pkg/image/format.go",
+		"/home/mortdeus/Code/go/src/pkg/encoding/gob/doc.go",
+		"/home/mortdeus/gohome/src/test/closures.go",
+		"/home/mortdeus/Code/go/src/pkg/image/image.go",
+		"/home/mortdeus/gohome/src/test/singleton.go",
+		"/home/mortdeus/go/src/pkg/io/io.go",
+		"/home/mortdeus/gohome/src/test/pointers.go",
+		"/home/mortdeus/gohome/src/code.google.com/p/gocos2d/tga/tga.go",
+		"/home/mortdeus/Code/go/src/pkg/reflect/type.go",
+		"/home/mortdeus/gohome/src/test/mergesort.go",
+		"/home/mortdeus/gohome/src/github.com/axw/llgo/llgo/llgo.go",
+		"/home/mortdeus/gohome/src/github.com/Mortdeus/llgo/compiler.go",
+		"/home/mortdeus/Downloads/WiiBaFu-1.1-Linux/start.sh",
+		"/home/mortdeus/Downloads/WiiBaFu-1.1-Linux/docs/INSTALL",
+		"/home/mortdeus/gohome/src/github.com/Mortdeus/llgo/goroutine.go",
+		"/home/mortdeus/gohome/src/github.com/Mortdeus/llgo/README.md",
+		"/home/mortdeus/go/src/pkg/container/ring/ring.go",
+		"/home/mortdeus/.config/sublime-text-2/Packages/GoSublime/GoSublime.sublime-settings",
+		"/home/mortdeus/.config/sublime-text-2/Packages/Vintage Dev/Default.sublime-keymap",
+		"/home/mortdeus/Desktop/Default.sublime-keymap",
+		"/home/mortdeus/Desktop/Defaultdev.sublime-keymap",
+		"/home/mortdeus/.config/sublime-text-2/Packages/Vintage/Default.sublime-keymap",
+		"/home/mortdeus/Desktop/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Cur",
+			"Buf",
+			"g",
+			"Buf",
+			"buf",
+			"main",
+			"SetCursor",
+			"Blocks",
+			"Store",
+			";",
+			"shader",
+			";",
+			";\n",
+			"GL_APIENTRY",
+			"GL_APICALL",
+			"(",
+			"*/",
+			"/*UInt",
+			"Enum",
+			"glsizei",
+			"glint",
+			"uintptr",
+			"glsizei",
+			"glint",
+			"glclampf",
+			"glenum",
+			"gluint",
+			"target",
+			"/*glenum",
+			"\n}",
+			"glenum",
+			"texture(",
+			")",
+			"(",
+			" (",
+			"	 gl",
+			"activetexture",
+			" gl",
+			"texture",
+			"gluint",
+			"glenum",
+			"func ()",
+			"func () {}",
+			";",
+			";\n",
+			"(",
+			" ,",
+			"gwidth",
+			"(",
+			";",
+			");",
+			"// void",
+			"func",
+			"// void",
+			"	 gl",
+			"gl",
+			"(",
+			"		 gl",
+			"gl",
+			" (",
+			"	 gl",
+			"activetexture",
+			"viewport (gli",
+			"   gl",
+			"gl",
+			"  gl",
+			"           ",
+			"          ",
+			"         ",
+			"        ",
+			"       ",
+			"      ",
+			"     ",
+			"    ",
+			"   ",
+			"  gl",
+			" gl",
+			"gl",
+			"(",
+			" 	     ",
+			"GL_APIENTRY",
+			"GL_APICALL",
+			"(",
+			"func",
+			"    ",
+			"   ",
+			"type",
+			"const",
+			";\n",
+			");",
+			"void",
+			";\n",
+			" GLboolean ",
+			"void",
+			"GL_APIENTRY",
+			"GL",
+			"gl",
+			"GL",
+			"gl",
+			"GL_APIENTRY",
+			"GL_APICALL",
+			"GL_APICALL void",
+			"typedef",
+			"0x",
+			"GL_STENCIL_BUFFER_BIT",
+			" =",
+			"      =",
+			"                                  ",
+			"    ",
+			"   ",
+			"                 ",
+			"define ",
+			"wl_fixed_t",
+			"uint32_t",
+			"int fd, uint32_t mask, void *data",
+			"wl_event_loop_fd_func_t",
+			"struct",
+			"log",
+			"log_func_t",
+			"log_set",
+			"log_set_",
+			"format",
+			"shm",
+			"shm_send",
+			"shm_send_format",
+			"shm",
+			"shm_buffer",
+			"data_device"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 43.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.GsDoc-output":
+	{
+		"height": 120.0
+	},
+	"output.GsDoc-output-output":
+	{
+		"height": 126.0
+	},
+	"output.exec":
+	{
+		"height": 138.0
+	},
+	"output.gscommander:///home/mortdeus":
+	{
+		"height": 118.0
+	},
+	"output.gscommander:///home/mortdeus/.config/sublime-text-2/Packages/User":
+	{
+		"height": 118.0
+	},
+	"output.gscommander:///home/mortdeus/Code/go/src/cmd/go":
+	{
+		"height": 118.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				".h",
+				"wayland/src/wayland-server-protocol.h"
+			],
+			[
+				"util",
+				"go-wayland/util.go"
+			],
+			[
+				"serv",
+				"go-wayland/server.go"
+			],
+			[
+				"cur",
+				"go-wayland/cursor.go"
+			],
+			[
+				"comp",
+				"compiler.go"
+			],
+			[
+				"goro",
+				"goroutine.go"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 194.0,
+	"status_bar_visible": true
+}

@@ -1,0 +1,2 @@
+api_version: go1
+62bc3a9e_4cedf856_de0a96ce_ab6a7fb0_b9f5fd5f src/gocosweb.go

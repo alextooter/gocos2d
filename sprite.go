@@ -1,12 +1,11 @@
 package gocos2d
 
-import (
-//	"glfw"
-//	gl "gogl/gl21"
-//	"image"
-//	"image/jpeg"
-//	"image/png"
-)
+import ()
 
 type sprite struct {
+	Texture2d *texture2d
+}
+
+func SpriteSheet() {
+
 }
