@@ -1,38 +1,14 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//Modifications; Mortdeus(mortdeus.mit-license.org)
-
-// Package list implements a doubly linked list.
-//
-// To iterate over a list (where l is a *List):
-//	for e := l.Front(); e != nil; e = e.Next() {
-//		// do something with e.Value
-//	}
-//
 package gocos2d
 
-// Child is an Child in the linked list.
 type Child struct {
-	// Next and previous pointers in the doubly-linked list of elements.
-	// The front of the list has prev = nil, and the back has next = nil.
 	next, prev *Child
-
-	// The list to which this Child belongs.
-	list *ChildList
-
-	Value Node_
+	list       *ChildList
+	Value      Node_
 }
 
-// Next returns the next list Child or nil.
 func (e *Child) Next() *Child { return e.next }
-
-// Prev returns the previous list Child or nil.
 func (e *Child) Prev() *Child { return e.prev }
 
-// List represents a doubly linked list.
-// The zero value for List is an empty list ready to use.
 type ChildList struct {
 	dict        map[string]Node_
 	front, back *Child
@@ -43,7 +19,6 @@ func (l *ChildList) Lookup(tag string) Node_ {
 	return l.dict[tag]
 }
 
-// Init initializes or clears a List.
 func (l *ChildList) Init() *ChildList {
 	l.front = nil
 	l.back = nil
@@ -52,14 +27,10 @@ func (l *ChildList) Init() *ChildList {
 	return l
 }
 
-// Front returns the first Child in the list.
 func (l *ChildList) Front() *Child { return l.front }
 
-// Back returns the last Child in the list.
 func (l *ChildList) Back() *Child { return l.back }
 
-// Remove removes the Child from the list
-// and returns its Value.
 func (l *ChildList) Remove(e *Child) Node_ {
 	l.remove(e)
 	e.list = nil // do what remove does not
@@ -67,9 +38,6 @@ func (l *ChildList) Remove(e *Child) Node_ {
 	return e.Value
 }
 
-// remove the Child from the list, but do not clear the Child's list field.
-// This is so that other List methods may use remove when relocating Elements
-// without needing to restore the list field.
 func (l *ChildList) remove(e *Child) {
 	if e.list != l {
 		return
@@ -138,7 +106,6 @@ func (l *ChildList) insertBack(e *Child) {
 	l.insertAfter(e, l.back)
 }
 
-// PushFront inserts the value at the front of the list and returns a new Child containing the value.
 func (l *ChildList) PushFront(value Node_) *Child {
 	e := &Child{nil, nil, l, value}
 	l.dict[value.Tag()] = value
@@ -146,7 +113,6 @@ func (l *ChildList) PushFront(value Node_) *Child {
 	return e
 }
 
-// PushBack inserts the value at the back of the list and returns a new Child containing the value.
 func (l *ChildList) PushBack(value Node_) *Child {
 	e := &Child{nil, nil, l, value}
 	l.dict[value.Tag()] = value
@@ -154,7 +120,6 @@ func (l *ChildList) PushBack(value Node_) *Child {
 	return e
 }
 
-// InsertBefore inserts the value immediately before mark and returns a new Child containing the value.
 func (l *ChildList) InsertBefore(value Node_, mark *Child) *Child {
 	if mark.list != l {
 		return nil
@@ -165,7 +130,6 @@ func (l *ChildList) InsertBefore(value Node_, mark *Child) *Child {
 	return e
 }
 
-// InsertAfter inserts the value immediately after mark and returns a new Child containing the value.
 func (l *ChildList) InsertAfter(value Node_, mark *Child) *Child {
 	if mark.list != l {
 		return nil
@@ -176,7 +140,6 @@ func (l *ChildList) InsertAfter(value Node_, mark *Child) *Child {
 	return e
 }
 
-// MoveToFront moves the Child to the front of the list.
 func (l *ChildList) MoveToFront(e *Child) {
 	if e.list != l || l.front == e {
 		return
@@ -185,7 +148,6 @@ func (l *ChildList) MoveToFront(e *Child) {
 	l.insertFront(e)
 }
 
-// MoveToBack moves the Child to the back of the list.
 func (l *ChildList) MoveToBack(e *Child) {
 	if e.list != l || l.back == e {
 		return
@@ -194,10 +156,8 @@ func (l *ChildList) MoveToBack(e *Child) {
 	l.insertBack(e)
 }
 
-// Len returns the number of elements in the list.
 func (l *ChildList) Len() int { return l.len }
 
-// PushBackList inserts each Child of ol at the back of the list.
 func (l *ChildList) PushBackList(ol *ChildList) {
 	last := ol.Back()
 	for e := ol.Front(); e != nil; e = e.Next() {
@@ -208,7 +168,6 @@ func (l *ChildList) PushBackList(ol *ChildList) {
 	}
 }
 
-// PushFrontList inserts each Child of ol at the front of the list. The ordering of the passed list is preserved.
 func (l *ChildList) PushFrontList(ol *ChildList) {
 	first := ol.Front()
 	for e := ol.Back(); e != nil; e = e.Prev() {

@@ -51,8 +51,8 @@ func (this *Node) Init(tag string) *Node {
 	return this
 }
 func (this *Node) Cleanup() {
-	for e := this.Children.Front(); e != nil; e = e.Next() {
-		e.Value.Cleanup()
+	for node := this.Children.Front(); node != nil; node = node.Next() {
+		node.Value.Cleanup()
 	}
 	this = nil
 }
