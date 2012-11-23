@@ -3,7 +3,6 @@ package gocos2d
 type (
 	Node_ interface {
 		ID() uint
-		Init()
 		OnEnter()
 		OnExit()
 		Cleanup()
@@ -33,11 +32,11 @@ func (this *Node) ID() uint {
 	return this.Id
 }
 
-func (this *Node) Init() {
-	this = new(Node)
-	this.Id = GID
-	GID++
-	this.Children = make(map[uint]Node_)
+func NewNode() *Node {
+	node := new(Node)
+	node.Children = make(map[uint]Node_)
+	node.Id = uint(len(node.Children))
+	return node
 }
 func (this *Node) Cleanup() {
 	for _, n := range this.Children {
