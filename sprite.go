@@ -1,11 +1,10 @@
 package gocos2d
 
-import ()
-
-type sprite struct {
-	Texture2d *texture2d
-}
-
-func SpriteSheet() {
-
-}
+type (
+	Sprite_ interface {
+	}
+	Sprite struct {
+		*Node
+		Image *Texture2d
+	}
+)

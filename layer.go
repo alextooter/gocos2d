@@ -1,9 +1,9 @@
 package gocos2d
 
 type (
-	Scene_ interface {
+	Layer_ interface {
 	}
-	Scene struct {
+	Layer struct {
 		*Node
 	}
 )
