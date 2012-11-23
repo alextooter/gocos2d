@@ -18,7 +18,7 @@ type (
 		RunAction(Action_)
 		StopAction(Action_)
 		AddChild(Node_)
-		RemoveChild(uint)
+		RemoveChild(string)
 		ConvertTo()
 	}
 	Node struct {
@@ -51,17 +51,19 @@ func (this *Node) Init(tag string) *Node {
 	return this
 }
 func (this *Node) Cleanup() {
-	for node := this.Children.Front(); node != nil; node = node.Next() {
-		node.Value.Cleanup()
+	for n := this.Children.Front(); n != nil; n = n.Next() {
+		n.Node.Cleanup()
 	}
 	this = nil
 }
 func (this *Node) AddChild(child Node_) {
 	child.SetParent(this)
+
+	//TODO: Z Order sort here. 
 	_ = this.Children.PushFront(child)
 }
-func (this *Node) RemoveChild(id uint) {
-
+func (this *Node) RemoveChild(tag string) {
+	this.Children.Remove(this.Children.Lookup(tag))
 }
 func (this *Node) Draw() {
 

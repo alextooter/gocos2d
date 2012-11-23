@@ -3,19 +3,19 @@ package gocos2d
 type Child struct {
 	next, prev *Child
 	list       *ChildList
-	Value      Node_
+	Node       Node_
 }
 
 func (e *Child) Next() *Child { return e.next }
 func (e *Child) Prev() *Child { return e.prev }
 
 type ChildList struct {
-	dict        map[string]Node_
+	dict        map[string]*Child
 	front, back *Child
 	len         int
 }
 
-func (l *ChildList) Lookup(tag string) Node_ {
+func (l *ChildList) Lookup(tag string) *Child {
 	return l.dict[tag]
 }
 
@@ -23,7 +23,7 @@ func (l *ChildList) Init() *ChildList {
 	l.front = nil
 	l.back = nil
 	l.len = 0
-	l.dict = make(map[string]Node_)
+	l.dict = make(map[string]*Child)
 	return l
 }
 
@@ -34,8 +34,8 @@ func (l *ChildList) Back() *Child { return l.back }
 func (l *ChildList) Remove(e *Child) Node_ {
 	l.remove(e)
 	e.list = nil // do what remove does not
-	delete(l.dict, e.Value.Tag())
-	return e.Value
+	delete(l.dict, e.Node.Tag())
+	return e.Node
 }
 
 func (l *ChildList) remove(e *Child) {
@@ -106,36 +106,36 @@ func (l *ChildList) insertBack(e *Child) {
 	l.insertAfter(e, l.back)
 }
 
-func (l *ChildList) PushFront(value Node_) *Child {
-	e := &Child{nil, nil, l, value}
-	l.dict[value.Tag()] = value
+func (l *ChildList) PushFront(node Node_) *Child {
+	e := &Child{nil, nil, l, node}
+	l.dict[node.Tag()] = e
 	l.insertFront(e)
 	return e
 }
 
-func (l *ChildList) PushBack(value Node_) *Child {
-	e := &Child{nil, nil, l, value}
-	l.dict[value.Tag()] = value
+func (l *ChildList) PushBack(node Node_) *Child {
+	e := &Child{nil, nil, l, node}
+	l.dict[node.Tag()] = e
 	l.insertBack(e)
 	return e
 }
 
-func (l *ChildList) InsertBefore(value Node_, mark *Child) *Child {
+func (l *ChildList) InsertBefore(node Node_, mark *Child) *Child {
 	if mark.list != l {
 		return nil
 	}
-	e := &Child{nil, nil, l, value}
-	l.dict[value.Tag()] = value
+	e := &Child{nil, nil, l, node}
+	l.dict[node.Tag()] = e
 	l.insertBefore(e, mark)
 	return e
 }
 
-func (l *ChildList) InsertAfter(value Node_, mark *Child) *Child {
+func (l *ChildList) InsertAfter(node Node_, mark *Child) *Child {
 	if mark.list != l {
 		return nil
 	}
-	e := &Child{nil, nil, l, value}
-	l.dict[value.Tag()] = value
+	e := &Child{nil, nil, l, node}
+	l.dict[node.Tag()] = e
 	l.insertAfter(e, mark)
 	return e
 }
@@ -161,7 +161,7 @@ func (l *ChildList) Len() int { return l.len }
 func (l *ChildList) PushBackList(ol *ChildList) {
 	last := ol.Back()
 	for e := ol.Front(); e != nil; e = e.Next() {
-		l.PushBack(e.Value)
+		l.PushBack(e.Node)
 		if e == last {
 			break
 		}
@@ -171,7 +171,7 @@ func (l *ChildList) PushBackList(ol *ChildList) {
 func (l *ChildList) PushFrontList(ol *ChildList) {
 	first := ol.Front()
 	for e := ol.Back(); e != nil; e = e.Prev() {
-		l.PushFront(e.Value)
+		l.PushFront(e.Node)
 		if e == first {
 			break
 		}
