@@ -1,8 +1,12 @@
 package gocos2d
 
+import ()
+
 type (
 	Node_ interface {
-		ID() uint
+		Tag() string
+		ZOrder() int
+		SetParent(Node_)
 		OnEnter()
 		OnExit()
 		Cleanup()
@@ -18,37 +22,46 @@ type (
 		ConvertTo()
 	}
 	Node struct {
-		Id       uint
+		tag      string
 		Position Position
 		Z        int
 		Camera   Camera
 		Anchor   Anchor
 		Parent   Node_
-		Children map[uint]Node_
+		Children *ChildList
 	}
 )
 
-func (this *Node) ID() uint {
-	return this.Id
+func (this *Node) Tag() string {
+	return this.tag
+}
+func (this *Node) ZOrder() int {
+	return this.Z
+}
+func (this *Node) SetParent(parent Node_) {
+	this.Parent = parent
 }
 
-func NewNode() *Node {
-	node := new(Node)
-	node.Children = make(map[uint]Node_)
-	node.Id = uint(len(node.Children))
-	return node
+func (this *Node) Init(tag string) *Node {
+	this = new(Node)
+	this.tag = tag
+	list := new(ChildList).Init()
+	this.Children = list
+
+	return this
 }
 func (this *Node) Cleanup() {
-	for _, n := range this.Children {
-		n.Cleanup()
+	for e := this.Children.Front(); e != nil; e = e.Next() {
+		e.Value.Cleanup()
 	}
 	this = nil
 }
 func (this *Node) AddChild(child Node_) {
-	this.Children[child.ID()] = child
+	child.SetParent(this)
+	_ = this.Children.PushFront(child)
 }
 func (this *Node) RemoveChild(id uint) {
-	delete(this.Children, id)
+
 }
 func (this *Node) Draw() {
 

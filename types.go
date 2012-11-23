@@ -1,7 +1,8 @@
 package gocos2d
 
-var GID uint
-
+const (
+	Default = iota
+)
 type (
 	Anchor struct {
 		X, Y int

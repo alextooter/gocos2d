@@ -14,9 +14,9 @@ type B struct {
 }
 
 func main() {
-	a, b := &A{gocos2d.NewNode()}, &B{gocos2d.NewNode()}
+	a, b := new(A).Init("NodeA"), new(B).Init("NodeB")
 	a.AddChild(b)
-	c := a.Children[0]
-	println(c.ID())
+	c := a.Children.Lookup("NodeB")
+	println(b.Tag() == c.Tag())
 	a.Cleanup()
 }
