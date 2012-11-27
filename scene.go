@@ -2,10 +2,9 @@ package gocos2d
 
 type Scene struct {
 	*Node
-	isCurrent bool
-	
 }
 
-func (this *Scene) IsCurrent() bool {
-	return this.isCurrent
+func (this *Scene) Init(t Tag) {
+	this.Node = new(Node)
+	this.Node.Init(t)
 }

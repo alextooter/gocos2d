@@ -5,28 +5,30 @@ It is used to initialize a openGL context and It maintains a stack of scenes.
 You are able to update and draw your scenes directly by calling Director.Update
 and Director.Draw in your game loop.*/
 type Director struct {
+	Running bool
 	*ActionManager
 	*Scheduler
-	currentScene *Scene
-	stack        []*Scene
+	currentScene IScene
+	stack        []IScene
 }
 
 func (this *Director) Init() {
+	this.Running = true
 	this.ActionManager = new(ActionManager)
 	this.Scheduler = new(Scheduler)
-	this.stack = make([]*Scene, 0)
+	this.stack = make([]IScene, 0)
 }
-func (this *Director) Push(s *Scene) {
-	if this.currentScene != nil {
-		this.currentScene.isCurrent = false
-	}
+func (this *Director) Push(s IScene) {
 	this.stack = append(this.stack, s)
 	this.currentScene = s
+
 }
-func (this *Director) Pop() *Scene {
+func (this *Director) Pop() IScene {
 	this.stack = this.stack[:len(this.stack)-1]
 	defer func() {
-		this.currentScene = this.stack[len(this.stack)]
+		if (len(this.stack) - 1) > 0 {
+			this.currentScene = this.stack[len(this.stack)-1]
+		}
 	}()
 	return this.currentScene
 }

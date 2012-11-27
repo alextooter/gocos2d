@@ -2,10 +2,14 @@ package gocos2d
 
 type (
 	INode interface {
-		Init(Tag) INode
+		Init(Tag)
 		Cleanup()
 		Update()
 		Draw()
+
+		AddChild(INode)
+		RemoveChild(Tag)
+		GetChild(Tag) INode
 		OnEnter()
 		OnExit()
 		Visit()
@@ -17,10 +21,9 @@ type (
 		Position() *Position
 		Rotation(bool) *Rotation
 		Scale() *Scale
-		Skew() *Position
+		Skew() *Skew
 		Tag() *Tag
 		ZOrder() *ZOrder
-		Children() *Children
 		Parent() INode
 		Grid() *Grid
 		Camera() *Camera
@@ -28,17 +31,13 @@ type (
 	}
 	IScene interface {
 		INode
-		IsCurrent() *bool
 	}
 	ISprite interface {
-		INode
 		IsBatchNode() *bool
 	}
 	ILayer interface {
-		INode
 		IsParallax() *bool
 	}
 	IParticleSystem interface {
-		INode
 	}
 )

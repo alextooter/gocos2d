@@ -1,5 +1,9 @@
 package gocos2d
 
+import (
+	"log"
+)
+
 type (
 	Node struct {
 		anchor   Anchor
@@ -18,8 +22,10 @@ type (
 	Children []INode
 )
 
-func (this *Node) Init(tag Tag) *Node {
-	return new(Node)
+func (this *Node) Init(t Tag) {
+	this.tag = t
+	tmp := make(Children, 0)
+	this.children = &tmp
 
 }
 func (this *Node) Cleanup() {
@@ -69,10 +75,6 @@ func (this *Node) Tag() *Tag {
 func (this *Node) ZOrder() *ZOrder {
 	return &this.z
 }
-func (this *Node) Children() *Children {
-
-	return this.Children()
-}
 func (this *Node) Parent() INode {
 	return this.parent
 }
@@ -84,4 +86,36 @@ func (this *Node) Camera() *Camera {
 }
 func (this *Node) BoundingBox() *BoundingBox {
 	return &this.bbox
+}
+
+func (this *Node) AddChild(n INode) {
+	*this.children = append(*this.children, n)
+}
+func (this *Node) GetChild(id Tag) INode {
+	for _, n := range *this.children {
+		if *n.Tag() == id {
+			return n
+		}
+
+	}
+	log.Panicf(
+		"gocos2d: %s wasnt a found child tag in %s, shutting down",
+		id, *this.Tag())
+	return nil
+}
+func (this *Node) RemoveChild(id Tag) {
+	for i, n := range *this.children {
+		if *n.Tag() == id {
+			tmp := make(Children, len(*this.children)-1)
+			_ = copy(tmp, (*this.children)[:i])
+			if i != cap(*this.children) {
+				_ = copy(tmp, (*this.children)[i+1:])
+			}
+			this.children = &tmp
+			return
+		}
+	}
+	log.Panicf(
+		"gocos2d: %s wasnt a found child tag in %s, shutting down",
+		id, *this.Tag())
 }
