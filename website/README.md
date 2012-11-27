@@ -1,1 +1,0 @@
-Gocos2D.org Source Code. 
