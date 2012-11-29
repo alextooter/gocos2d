@@ -1,43 +1,34 @@
 package gocos2d
 
+//Node
 type (
 	INode interface {
-		Init(Tag)
-		Cleanup()
+		Node_() *Node
 		Update()
 		Draw()
-
-		AddChild(INode)
-		RemoveChild(Tag)
-		GetChild(Tag) INode
 		OnEnter()
 		OnExit()
-		Visit()
-
-		Transform(uint)
-		ConvertTo(uint)
-
-		Anchor() *Anchor
-		Position() *Position
-		Rotation(bool) *Rotation
-		Scale() *Scale
-		Skew() *Skew
-		Tag() *Tag
-		ZOrder() *ZOrder
-		Parent() INode
-		Grid() *Grid
-		Camera() *Camera
-		BoundingBox() *BoundingBox
+		Cleanup()
 	}
 	IScene interface {
 		INode
 	}
 	ISprite interface {
+		INode
 		IsBatchNode() *bool
 	}
 	ILayer interface {
-		IsParallax() *bool
+		INode
 	}
 	IParticleSystem interface {
+		INode
+	}
+)
+
+//Action
+
+type (
+	IAction interface {
+		Action_() *Action
 	}
 )

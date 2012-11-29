@@ -1,40 +1,29 @@
 package main
 
 import (
-	"fmt"
 	"github.com/mortdeus/gocos2d"
 )
 
 var (
 	director  = new(gocos2d.Director)
-	scene     = new(Scene)
+	lvl1      = new(Level)
 	groundhog = new(Groundhog)
 )
 
 func main() {
 	Init()
 	defer Cleanup()
-
-	x := 5
 	for director.Running {
-		fmt.Print(".")
-		x--
 		Update()
 		Draw()
-		if x <= 0 {
-			director.Running = false
-			fmt.Println("\nShutting Down")
-		}
 	}
 
 }
-
 func Init() {
 	director.Init()
-	scene.Init("InitScene")
-	groundhog.Init("groundhog")
-	scene.AddChild(groundhog)
-	director.Push(scene)
+	lvl1.Init("lvl1")
+	lvl1.AddChild(groundhog)
+	director.Push(lvl1)
 }
 func Update() {
 	director.Update()
@@ -44,6 +33,6 @@ func Draw() {
 }
 func Cleanup() {
 	director.Cleanup()
-	scene.RemoveChild("groundhog")
+	lvl1.RemoveChild("Groundhog")
 
 }

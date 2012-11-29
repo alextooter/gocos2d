@@ -22,8 +22,12 @@ type (
 	Children []INode
 )
 
-func (this *Node) Init(t Tag) {
-	this.tag = t
+func (this *Node) Node_() *Node {
+	return this
+}
+
+func (this *Node) Init(id Tag) {
+	this.tag = id
 	tmp := make(Children, 0)
 	this.children = &tmp
 
@@ -93,10 +97,9 @@ func (this *Node) AddChild(n INode) {
 }
 func (this *Node) GetChild(id Tag) INode {
 	for _, n := range *this.children {
-		if *n.Tag() == id {
+		if n.Node_().tag == id {
 			return n
 		}
-
 	}
 	log.Panicf(
 		"gocos2d: %s wasnt a found child tag in %s, shutting down",
@@ -105,7 +108,7 @@ func (this *Node) GetChild(id Tag) INode {
 }
 func (this *Node) RemoveChild(id Tag) {
 	for i, n := range *this.children {
-		if *n.Tag() == id {
+		if n.Node_().tag == id {
 			tmp := make(Children, len(*this.children)-1)
 			_ = copy(tmp, (*this.children)[:i])
 			if i != cap(*this.children) {
