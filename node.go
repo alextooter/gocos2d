@@ -30,7 +30,6 @@ func (this *Node) Init(id Tag) {
 	this.tag = id
 	tmp := make(children, 0)
 	this.children = &tmp
-
 }
 func (this *Node) Cleanup() {
 

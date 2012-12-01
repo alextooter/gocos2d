@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/mortdeus/gocos2d"
+	"gocos2d.org/pkg"
 )
 
 var (
