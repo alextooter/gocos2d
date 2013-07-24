@@ -1,10 +1,13 @@
 package gocos2d
 
+import glfw "github.com/go-gl/glfw3"
+
 /*The Director is a singleton that is designed to simplify how you manage your game.
 It is used to initialize a openGL context and It maintains a stack of scenes.
 You are able to update and draw your scenes directly by calling Director.Update
 and Director.Draw in your game loop.*/
 type Director struct {
+	Window  window
 	Running bool
 	*ActionManager
 	*Scheduler
@@ -12,38 +15,44 @@ type Director struct {
 	stack        []IScene
 }
 
-func (this *Director) Init() {
-	this.Running = true
-	this.ActionManager = new(ActionManager)
-	this.Scheduler = new(Scheduler)
-	this.stack = make([]IScene, 0)
+func (d *Director) Init() {
+	d.Running = true
+	d.ActionManager = new(ActionManager)
+	d.Scheduler = new(Scheduler)
+	d.stack = make([]IScene, 0)
+	d.Window.Init()
 }
-func (this *Director) Push(s IScene) {
-	this.stack = append(this.stack, s)
-	this.currentScene = s
+func (d *Director) Push(s IScene) {
+	d.stack = append(d.stack, s)
+	d.currentScene = s
 
 }
-func (this *Director) Pop() IScene {
-	this.stack = this.stack[:len(this.stack)-1]
+func (d *Director) Pop() IScene {
+	d.stack = d.stack[:len(d.stack)-1]
 	defer func() {
-		if (len(this.stack) - 1) > 0 {
-			this.currentScene = this.stack[len(this.stack)-1]
+		if (len(d.stack) - 1) > 0 {
+			d.currentScene = d.stack[len(d.stack)-1]
 		}
 	}()
-	return this.currentScene
+	return d.currentScene
 }
-func (this *Director) Destroy(n INode) {
+func (d *Director) Destroy(n INode) {
 	n.Cleanup()
 }
-func (this *Director) Pause() {
+func (d *Director) Pause() {
 
 }
-func (this *Director) Unpause() {
+func (d *Director) Unpause() {
 
 }
-func (this *Director) Cleanup() {
+func (d *Director) Cleanup() {
+	d.Window.cleanup()
 }
-func (this *Director) Update() {
+func (d *Director) Update() {
+	if d.Window.win.ShouldClose() {
+		d.Running = false
+	}
+	glfw.PollEvents()
 }
-func (this *Director) Draw() {
+func (d *Director) Draw() {
 }

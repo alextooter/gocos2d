@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gocos2d.org/pkg"
+	"github.com/mortdeus/gocos2d"
 )
 
 var (
@@ -20,8 +20,10 @@ func main() {
 
 }
 func Init() {
+	director.Window.AppTitle = "Gophers"
 	director.Init()
 	lvl1.Init("lvl1")
+	groundhog.Init("groundhog0")
 	lvl1.AddChild(groundhog)
 	director.Push(lvl1)
 }
@@ -33,6 +35,6 @@ func Draw() {
 }
 func Cleanup() {
 	director.Cleanup()
-	lvl1.RemoveChild("Groundhog")
+	lvl1.RemoveChild("groundhog0")
 
 }

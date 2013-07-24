@@ -6,15 +6,15 @@ type Groundhog struct {
 	gocos2d.Sprite
 }
 
-func (this *Groundhog) Update() {
+func (gh *Groundhog) Update() {
 
 }
-func (this *Groundhog) Draw() {
+func (gh *Groundhog) Draw() {
 
 }
-func (this *Groundhog) OnEnter() {
+func (gh *Groundhog) OnEnter() {
 
 }
-func (this *Groundhog) OnExit() {
+func (gh *Groundhog) OnExit() {
 
 }
