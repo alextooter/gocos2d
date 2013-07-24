@@ -20,7 +20,7 @@ func main() {
 
 }
 func Init() {
-	director.Window.AppTitle = "Gophers"
+	director.Window.Title = "Gophers"
 	director.Init()
 	lvl1.Init("lvl1")
 	groundhog.Init("groundhog0")

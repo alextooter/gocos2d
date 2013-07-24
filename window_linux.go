@@ -9,7 +9,7 @@ import (
 type window struct {
 	win           *glfw.Window
 	Width, Height int
-	AppTitle      string
+	Title         string
 }
 
 func errorCallback(err glfw.ErrorCode, desc string) {
@@ -24,14 +24,14 @@ func (w *window) Init() {
 		w.Width = 680
 		w.Height = 480
 	}
-	if w.AppTitle == "" {
-		w.AppTitle = "gocos2d"
+	if w.Title == "" {
+		w.Title = "gocos2d"
 	}
 	glfw.WindowHint(glfw.ClientApi, glfw.OpenglEsApi)
 	glfw.WindowHint(glfw.ContextVersionMajor, 2)
 	glfw.WindowHint(glfw.ContextVersionMinor, 0)
 	var err error
-	w.win, err = glfw.CreateWindow(w.Width, w.Height, w.AppTitle, nil, nil)
+	w.win, err = glfw.CreateWindow(w.Width, w.Height, w.Title, nil, nil)
 	if err != nil {
 		panic(err)
 	}
