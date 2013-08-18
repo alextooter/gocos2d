@@ -1,10 +1,9 @@
 package gocos2d
 
 type Scene struct {
-	*Node
+	Node
 }
 
-func (this *Scene) Init(t Tag) {
-	this.Node = new(Node)
-	this.Node.Init(t)
+func (this *Scene) Init(id string) {
+	this.Node.Init(id)
 }
