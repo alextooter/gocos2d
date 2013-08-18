@@ -1,30 +1,30 @@
 package gocos2d
 
 type Action struct {
-	id     Tag
+	id     string
 	isDone bool
-	target *INode
+	target INode
 }
 
 type ActionManager struct {
 }
 
-func (this *ActionManager) Run(a *Action) {
+func (am *ActionManager) Run(a *Action) {
 
 }
 
-func (this *Action) Action() *Action {
-	return this
+func (a *Action) Action() *Action {
+	return a
 }
-func (this *Action) Init(id Tag) {
-	this.id = id
+func (a *Action) Init(id string) {
+	a.id = id
 }
-func (this *Action) Step() {
+func (a *Action) Step() {
 
 }
-func (this *Action) Stop() {
+func (a *Action) Stop() {
 
 }
-func (this *Action) Update() {
+func (a *Action) Update() {
 
 }
