@@ -4,18 +4,23 @@ import (
 	glfw "github.com/go-gl/glfw3"
 	gl "github.com/mortdeus/egles/es2"
 	"log"
+	"runtime"
 )
+
+var AppID = "gocos2d"
 
 type window struct {
 	win           *glfw.Window
 	Width, Height int
-	Title         string
 }
 
 func errorCallback(err glfw.ErrorCode, desc string) {
 	log.Printf("%v: %v\n", err, desc)
 }
-func (w *window) Init() {
+func init() {
+	runtime.LockOSThread()
+}
+func (w *window) init() {
 	glfw.SetErrorCallback(errorCallback)
 	if !glfw.Init() {
 		println("glfw init failure")
@@ -24,14 +29,11 @@ func (w *window) Init() {
 		w.Width = 680
 		w.Height = 480
 	}
-	if w.Title == "" {
-		w.Title = "gocos2d"
-	}
 	glfw.WindowHint(glfw.ClientApi, glfw.OpenglEsApi)
 	glfw.WindowHint(glfw.ContextVersionMajor, 2)
 	glfw.WindowHint(glfw.ContextVersionMinor, 0)
 	var err error
-	w.win, err = glfw.CreateWindow(w.Width, w.Height, w.Title, nil, nil)
+	w.win, err = glfw.CreateWindow(w.Width, w.Height, AppID, nil, nil)
 	if err != nil {
 		panic(err)
 	}
