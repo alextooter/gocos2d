@@ -7,7 +7,7 @@ It is used to initialize a openGL context and It maintains a stack of scenes.
 You are able to update and draw your scenes directly by calling Director.Update
 and Director.Draw in your game loop.*/
 type Director struct {
-	Window  window
+	window
 	Running bool
 	*ActionManager
 	*Scheduler
@@ -20,7 +20,7 @@ func (d *Director) Init() {
 	d.ActionManager = new(ActionManager)
 	d.Scheduler = new(Scheduler)
 	d.stack = make([]IScene, 0)
-	d.Window.Init()
+	d.window.init()
 }
 func (d *Director) Push(s IScene) {
 	d.stack = append(d.stack, s)
@@ -46,10 +46,10 @@ func (d *Director) Unpause() {
 
 }
 func (d *Director) Cleanup() {
-	d.Window.cleanup()
+	d.window.cleanup()
 }
 func (d *Director) Update() {
-	if d.Window.win.ShouldClose() {
+	if d.window.win.ShouldClose() {
 		d.Running = false
 	}
 	glfw.PollEvents()
