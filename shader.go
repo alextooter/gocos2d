@@ -1,7 +1,6 @@
 package gocos2d
 
 import gl "github.com/mortdeus/egles/es2"
-import "log"
 import "fmt"
 
 var (
@@ -44,7 +43,6 @@ func FragmentShader(s string) uint32 {
 		var length gl.Sizei
 		_log := string(s)
 		gl.GetShaderInfoLog(shader, 1000, &length, &_log)
-		log.Fatalf("Error: compiling:\n%s\n", _log)
 	}
 	return shader
 
@@ -61,7 +59,6 @@ func VertexShader(s string) uint32 {
 		var length gl.Sizei
 		_log := string(s)
 		gl.GetShaderInfoLog(shader, 1000, &length, &_log)
-		log.Fatalf("Error: compiling:\n%s\n", _log)
 	}
 	return shader
 }
@@ -78,7 +75,6 @@ func Program(fsh, vsh uint32) uint32 {
 		var length gl.Sizei
 		_log := string(s)
 		gl.GetProgramInfoLog(p, 1000, &length, &_log)
-		log.Fatalf("Error: linking:\n%s\n", _log)
 	}
 	return p
 }
