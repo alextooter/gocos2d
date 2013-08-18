@@ -1,5 +1,7 @@
 package gocos2d
 
+var AppID = "gocos2d"
+
 //Node
 type (
 	INode interface {
