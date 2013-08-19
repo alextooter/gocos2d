@@ -1,3 +1,4 @@
+//http://mortdeus.mit-license.org/
 package gocos2d
 
 var AppID = "gocos2d"

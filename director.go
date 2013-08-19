@@ -1,3 +1,4 @@
+//http://mortdeus.mit-license.org/
 package gocos2d
 
 import glfw "github.com/go-gl/glfw3"
