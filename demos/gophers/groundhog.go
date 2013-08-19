@@ -1,6 +1,6 @@
 package main
 
-import "github.com/mortdeus/gocos2d"
+import "gocos2d.org"
 
 type Groundhog struct {
 	gocos2d.Sprite

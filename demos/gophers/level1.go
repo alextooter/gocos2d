@@ -1,6 +1,6 @@
 package main
 
-import "github.com/mortdeus/gocos2d"
+import "gocos2d.org"
 
 type Level struct {
 	gocos2d.Scene

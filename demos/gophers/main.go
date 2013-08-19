@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/mortdeus/gocos2d"
+	"gocos2d.org"
 )
 
 var (
