@@ -7,8 +7,6 @@ import (
 	"runtime"
 )
 
-var AppID = "gocos2d"
-
 type window struct {
 	win           *glfw.Window
 	Width, Height int
