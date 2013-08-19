@@ -2,8 +2,7 @@ package gocos2d
 
 type (
 	Node struct {
-		anchor
-		pos
+		rect
 		rot
 		camera
 		skew
@@ -11,7 +10,7 @@ type (
 		tag
 		zOrder
 		grid
-		rect
+
 		parent INode
 		children
 	}
