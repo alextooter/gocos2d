@@ -42,7 +42,7 @@ func (w *window) init() {
 
 func (w *window) reshape(width, height int) {
 	w.Width, w.Height = width, height
-	gl.Viewport(0, 0, gl.Sizei(width), gl.Sizei(height))
+	gl.Viewport(0, 0, width, height)
 }
 func (w *window) cleanup() {
 	w.win.Destroy()
