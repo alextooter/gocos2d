@@ -1,3 +1,4 @@
+//http://mortdeus.mit-license.org/
 package main
 
 import (
