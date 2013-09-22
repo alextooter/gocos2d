@@ -43,7 +43,6 @@ type (
 	}
 	ISprite interface {
 		INode
-		IsBatchNode() *bool
 	}
 	ILayer interface {
 		INode

@@ -2,6 +2,8 @@ package gocos2d
 
 import "fmt"
 
+//TODO: Make these methods thread safe using sync/atomic pkg.
+
 type rect struct{ w, h float32 }
 
 func (r *rect) GetRect() (w, h float32) { return r.w, r.h }
