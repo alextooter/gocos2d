@@ -10,9 +10,9 @@ type groundhog struct {
 	gocos2d.Sprite
 }
 
-func NewGroundhog() *groundhog {
+func NewGroundhog() (*groundhog, error) {
 	fd := os.Open("img/groundhog.png")
-	return groundhog{gocos2d.NewSprite(groundhog, "img/groundhog.png")}
+	return groundhog{gocos2d.NewSprite("groundhog", "img/groundhog.png")}
 }
 
 func (gh *groundhog) Update() {

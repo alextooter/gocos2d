@@ -6,6 +6,10 @@ type Level struct {
 	gocos2d.Scene
 }
 
+func NewLevel() *Level {
+	return &Level{gocos2d.NewScene("level")}
+}
+
 func (this *Level) Update() {
 
 }

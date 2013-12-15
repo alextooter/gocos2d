@@ -23,9 +23,12 @@ func main() {
 func Init() {
 	gocos2d.AppID = "Gophers"
 	dir.Init()
-	lvl1.Init("lvl1")
-	
-	hog, err := Groundhog{gocos2d.NewSprite("groundhog0")}
 
+	hog, err := NewGroundhog()
+	if err != nil {
+		panic(err)
+	}
+	lvl1 := NewLevel()
+	lvl1.AddChild(hog)
 	dir.Push(lvl1)
 }
