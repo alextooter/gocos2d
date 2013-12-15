@@ -1,5 +1,9 @@
 package gocos2d
 
-type Layer struct {
-	*Node
+type Layer interface {
+	Node
+}
+
+type layer struct {
+	node
 }

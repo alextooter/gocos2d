@@ -1,12 +1,20 @@
 package gocos2d
 
-type Scheduler struct {
+type Scheduler interface {
+	Schedule() error
+	Unschedule() error
+}
+type scheduler struct {
 }
 
-func (this *Scheduler) Schedule() {
-
+func NewScheduler() Scheduler {
+	return new(scheduler)
 }
 
-func (this *Scheduler) Unschedule() {
+func (s *scheduler) Schedule() error {
+	return nil
+}
 
+func (s *scheduler) Unschedule() error {
+	return nil
 }

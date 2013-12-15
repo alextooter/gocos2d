@@ -1,9 +1,13 @@
 package gocos2d
 
-type Scene struct {
+type Scene interface {
 	Node
 }
 
-func (this *Scene) Init(id string) {
-	this.Node.Init(id)
+type scene struct {
+	node
+}
+
+func NewScene(tag string) *scene {
+	return &scene{*NewNode(tag)}
 }

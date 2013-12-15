@@ -9,7 +9,7 @@ import (
 )
 
 type window struct {
-	win           *glfw.Window
+	*glfw.Window
 	Width, Height int
 }
 
@@ -32,11 +32,11 @@ func (w *window) init() {
 	glfw.WindowHint(glfw.ContextVersionMajor, 2)
 	glfw.WindowHint(glfw.ContextVersionMinor, 0)
 	var err error
-	w.win, err = glfw.CreateWindow(w.Width, w.Height, AppID, nil, nil)
+	w.Window, err = glfw.CreateWindow(w.Width, w.Height, Director.AppId, nil, nil)
 	if err != nil {
 		panic(err)
 	}
-	w.win.MakeContextCurrent()
+	w.MakeContextCurrent()
 	glfw.SwapInterval(1)
 }
 
@@ -45,6 +45,10 @@ func (w *window) reshape(width, height int) {
 	gl.Viewport(0, 0, width, height)
 }
 func (w *window) cleanup() {
-	w.win.Destroy()
+	w.Destroy()
 	glfw.Terminate()
+}
+
+func (w *window) pollEvents() {
+	glfw.PollEvents()
 }

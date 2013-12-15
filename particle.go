@@ -1,7 +1,8 @@
 package gocos2d
 
-type (
-	ParticleSystem struct {
-		*Node
-	}
-)
+type ParticleSystem interface {
+	Node
+}
+type particleSystem struct {
+	node
+}
