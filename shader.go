@@ -3,20 +3,26 @@ package gocos2d
 import gl "github.com/mortdeus/egles/es2"
 import "fmt"
 
+type Shader interface {
+	GetShader(uint) uint
+	SetShader(uint, uint)
+}
+
 const (
 	SHADER_POSITION_COLOR_FRAG = `
 
-	precision lowp float;                 
-        	
+	    precision lowp float;                      	
+
         varying vec4 v_fragColor;         
-                                              
+                                          
         void main(){                                     
-            	gl_FragColor = v_fragColor;       
-        }`
+            gl_FragColor = v_fragColor;       
+        }
+    `
 
 	SHADER_POSITION_COLOR_VERT = `
 
-	uniform mat4 MVPMatrix;
+	    uniform mat4 MVPMatrix;
 
        	attribute vec4 a_pos;                
        	attribute vec4 a_color;
@@ -24,25 +30,26 @@ const (
        	varying lowp vec4 v_fragColor;        
        	                                          
        	void main(){                                         
-       	    	gl_Position = MVPMatrix * a_pos;  
-       	    	 
+       	    	gl_Position = MVPMatrix * a_pos;   
        	    	v_fragColor = a_color;             
-       	}`
+       	}
+    `
 
 	SHADER_POSITION_UCOLOR_FRAG = `                                           
 
-       	precision lowp float;                    
-       	
+       	precision lowp float;                        	
+
        	varying vec4 v_fragColor;            
                                                 
        	void main(){                                        
            	gl_FragColor = v_fragColor;      
-       	}`
+       	}
+    `
 
 	SHADER_POSITION_UCOLOR_VERT = `                                    
 
-        attribute vec4 a_pos;               
-        
+        attribute vec4 a_pos;                    
+
         uniform vec4 u_color;                 
         uniform float u_pointSize;               
         uniform mat4 MVPMatrix;
@@ -53,7 +60,8 @@ const (
         	gl_Position = MVPMatrix * a_pos;    
         	gl_PointSize = u_pointSize;          
         	v_fragColor = u_color;           
-        }`
+        }
+    `
 
 	SHADER_POSITION_COLOR_LENGTH_TEXTURE_FRAG = `
        
@@ -62,11 +70,12 @@ const (
 
         void main(){
         	gl_FragColor = v_color * step(0.0, 1.0 - length(v_texcoord));
-        }`
+        }
+    `
 
 	SHADER_POSITION_COLOR_LENGTH_TEXTURE_VERT = `
 
-	uniform mat4 MVPMatrix;
+	    uniform mat4 MVPMatrix;
 
         attribute mediump vec4 a_pos;
         attribute mediump vec2 a_texcoord;
@@ -76,10 +85,10 @@ const (
         varying mediump vec2 v_texcoord;
         
         void main(){
-        	v_color = a_color;
-        	
-        	//vec4(a_color.rgb * a_color.a, a_color.a);	
-        	
+        	v_color = a_color;	
+
+        	//vec4(a_color.rgb * a_color.a, a_color.a);	 	
+
         	v_texcoord = a_texcoord;
          	gl_Position = MVPMatrix * a_pos;
             	
@@ -94,11 +103,12 @@ const (
                                                   
         void main(){                                          
             	gl_FragColor =  texture2D(CC_Texture0, v_texCoord);   
-        }`
+        }
+    `
 
 	SHADER_POSITION_TEXTURE_VERT = `
 
-	uniform mat4 MVPMatrix;
+	    uniform mat4 MVPMatrix;
 
         attribute vec4 a_pos;                   
         attribute vec2 a_texCoord;                  
@@ -106,27 +116,28 @@ const (
         varying mediump vec2 v_texCoord;           
                                                    
         void main(){                                          
-        	gl_Position = MVPMatrix * a_pos;  
-            	  
-            	v_texCoord = a_texCoord;               
-        }`
+            gl_Position = MVPMatrix * a_pos;  
+            v_texCoord = a_texCoord;               
+        }
+    `
 
 	SHADER_POSITION_TEXTURE_UCOLOR_FRAG = `                                                
 
         precision lowp float;                        
                                                      
         uniform vec4 u_color;                        
+        uniform sampler2D CC_Texture0; 
+
         varying vec2 v_texCoord;                     
-                                                     
-        uniform sampler2D CC_Texture0;               
-                                                     
+                                                                                                   
         void main(){                                            
             	gl_FragColor =  texture2D(CC_Texture0, v_texCoord) * u_color;    
-        }`
+        }
+    `
 
 	SHADER_POSITION_TEXTURE_UCOLOR_VERT = `
 	
-	uniform mat4 MVPMatrix;
+	    uniform mat4 MVPMatrix;
 
         attribute vec4 a_pos;                   
         attribute vec2 a_texCoord;                   
@@ -135,8 +146,9 @@ const (
                                                      
         void main(){                                            
         	gl_Position = MVPMatrix * a_pos;  
-            	v_texCoord = a_texCoord;                 
-        }`
+            v_texCoord = a_texCoord;                 
+        }
+    `
 
 	SHADER_POSITION_TEXTURE_A8COLOR_FRAG = `
 
@@ -147,18 +159,18 @@ const (
         uniform sampler2D CC_Texture0;                 
                                                      
         void main(){                                            
-            	gl_FragColor = vec4(
-            		// RGB from uniform
-            		v_fragColor.rgb,      
-            			
-            		// A from texture and uniform                              
-                	v_fragColor.a * texture2D(CC_Texture0, v_texCoord).a
-            	);                                         
-        }`
+            gl_FragColor = vec4(
+                // RGB from uniform   
+                v_fragColor.rgb,
+
+                // A from texture and uniform      
+                v_fragColor.a * texture2D(CC_Texture0, v_texCoord).a);                                         
+        }
+    `
 
 	SHADER_POSITION_TEXTURE_A8COLOR_VERT = `
 
-	uniform mat4 MVPMatrix;
+	    uniform mat4 MVPMatrix;
 
         attribute vec4 a_pos;                   
         attribute vec2 a_texCoord;                   
@@ -168,11 +180,11 @@ const (
         varying mediump vec2 v_texCoord;             
                                                      
         void main(){                                            
-        	gl_Position = MVPMatrix * a_pos;  
-            	  
-            	v_fragColor = a_color;               
-            	v_texCoord = a_texCoord;                 
-        }`
+        	gl_Position = MVPMatrix * a_pos;  	  
+            v_fragColor = a_color;               
+            v_texCoord = a_texCoord;                 
+        }
+    `
 
 	SHADER_POSITION_TEXTURE_COLOR_FRAG = `
 
@@ -183,12 +195,13 @@ const (
         uniform sampler2D Tex0;               
                                                      
         void main(){                                            
-            	gl_FragColor = v_fragColor * texture2D(Tex0, v_texCoord);         
-        }`
+            gl_FragColor = v_fragColor * texture2D(Tex0, v_texCoord);         
+        }
+    `
 
 	SHADER_POSITION_TEXTURE_COLOR_VERT = `
 
-	uniform mat4 MVPMatrix;
+	    uniform mat4 MVPMatrix;
 
         attribute vec4 a_pos;                   
         attribute vec2 a_texCoord;                   
@@ -199,10 +212,10 @@ const (
                                                      
         void main(){                                            
         	gl_Position = MVPMatrix * a_pos;  
-            	  
-            	v_fragColor = a_color;               
-            	v_texCoord = a_texCoord;                 
-        }`
+            v_fragColor = a_color;               
+            v_texCoord = a_texCoord;                 
+        }
+    `
 
 	SHADER_POSITION_TEXTURE_COLOR_ALPHATEST_FRAG = `
 
@@ -214,18 +227,18 @@ const (
         uniform float alpha_value;                   
                                                         
         void main(){                                               
-            	vec4 texColor = texture2D(Tex0, v_texCoord);          
+            vec4 texColor = texture2D(Tex0, v_texCoord);          
                                                         
-            	// mimic: glAlphaFunc(GL_GREATER)           
+            // mimic: glAlphaFunc(GL_GREATER)           
         	
-        	/*	pass if ( incoming_pixel >= alpha_value ) 
-			=> fail if incoming_pixel < alpha_value         
-                */                                        
-            	if ( texColor.a <= alpha_value )          
-                discard;                                
-                                                        
-            	gl_FragColor = texColor * v_fragColor;  
-        }`
+            // pass if ( incoming_pixel >= alpha_value ) 
+		    // => fail if incoming_pixel < alpha_value                                                
+            
+            if ( texColor.a <= alpha_value ) discard;
+
+            gl_FragColor = texColor * v_fragColor;  
+        }
+    `
 
 	SHADEREX_SWITCHMASK_FRAG = `
 
@@ -241,29 +254,29 @@ const (
             vec4 maskColor  = texture2D(u_mask, v_texCoord);             
             vec4 finalColor = vec4(texColor.r, texColor.g, texColor.b, maskColor.a * texColor.a);        
             gl_FragColor    = v_fragColor * finalColor;              
-        }`
+        }
+    `
 )
 
-func FragmentShader(s string) uint {
-	shader := gl.CreateShader(gl.FRAGMENT_SHADER)
+func NewShader(s string, typ uint) (shader uint) {
+	log := func(s string) {
+		if gl.GetShaderiv(shader, gl.COMPILE_STATUS, make([]int32, 1))[0] == 0 {
+			fmt.Printf("%s:\n%s\n", s, gl.GetShaderInfoLog(shader, 1000))
+		}
+	}
+	switch typ {
+	case gl.FRAGMENT_SHADER:
+		shader = gl.CreateShader(gl.FRAGMENT_SHADER)
+		log("Fragment Shader")
+	case gl.VERTEX_SHADER:
+		shader = gl.CreateShader(gl.VERTEX_SHADER)
+		log("Vertex Shader")
+	}
 	gl.ShaderSource(shader, s)
 	gl.CompileShader(shader)
 
-	if gl.GetShaderiv(shader, gl.COMPILE_STATUS, make([]int32, 1))[0] == 0 {
-		fmt.Printf("Fragment Shader:\n%s\n", gl.GetShaderInfoLog(shader, 1000))
-
-	}
 	return shader
-}
-func VertexShader(s string) uint {
-	shader := gl.CreateShader(gl.VERTEX_SHADER)
-	gl.ShaderSource(shader, s)
-	gl.CompileShader(shader)
 
-	if gl.GetShaderiv(shader, gl.COMPILE_STATUS, make([]int32, 1))[0] == 0 {
-		fmt.Printf("Vertex Shader:\n%s\n", gl.GetShaderInfoLog(shader, 1000))
-	}
-	return shader
 }
 func Program(fsh, vsh uint) uint {
 	p := gl.CreateProgram()

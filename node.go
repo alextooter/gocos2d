@@ -1,9 +1,20 @@
 package gocos2d
 
 import "sync"
+import gl "github.com/mortdeus/egles/es2"
 
 type Node interface {
 	sync.Locker
+	Rectangle
+	Rotation
+	Position
+	Anchor
+	Camera
+	Skew
+	Scale
+	ZOrder
+	Shader
+
 	Update() error
 	Draw() error
 	OnEnter() error
@@ -13,19 +24,33 @@ type Node interface {
 	Transform(uint) error
 	ConvertTo(uint) error
 
+	GetParent() Node
+	SetParent(Node)
+
+	Tag() string
+	IsDirty() bool
+	SetDirty(bool)
+
 	AddChild(string, Node)
 	GetChild(string) Node
 	RemoveChild(string)
 }
 type node struct {
-	id string
+	tag   string
+	dirty bool
+
+	anchor
 	rect
 	rot
 	camera
 	skew
 	scale
 	zOrder
+	pos
 	//grid
+
+	prog, fsh, vsh     uint
+	vtouched, ftouched bool
 
 	parent   Node
 	children []Node
@@ -33,55 +58,82 @@ type node struct {
 	sync.Mutex
 }
 
-func NewNode(id string) *node {
+func NewNode(tag string) *node {
 	return &node{
-		id:       id,
+		tag:      tag,
 		children: make([]Node, 0),
 		lookup:   make(map[string]int, 0)}
 }
 
-func (n *node) Cleanup() error {
-	n.Lock()
-	defer n.Unlock()
+func (n *node) Cleanup() error { return nil }
 
-	return nil
-}
 func (n *node) Update() error {
-	n.Lock()
-	defer n.Unlock()
+	if !n.IsDirty() {
+		return nil
+	}
+	for _, child := range n.children {
+		if err := child.Update(); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 func (n *node) Draw() error {
-	n.Lock()
-	defer n.Unlock()
+	if !n.IsDirty() {
+		return nil
+	}
+	for _, child := range n.children {
+		if err := child.Draw(); err != nil {
+			return err
+		}
+	}
 	return nil
-}
-func (n *node) OnEnter() error {
-	n.Lock()
-	defer n.Unlock()
-	return nil
-}
-func (n *node) OnExit() error {
-	n.Lock()
-	defer n.Unlock()
-	return nil
-}
-func (n *node) Visit() error {
-	n.Lock()
-	defer n.Unlock()
-	return nil
+
 }
 
-func (n *node) Transform(uint) error {
-	n.Lock()
-	defer n.Unlock()
-	return nil
+func (n *node) OnEnter() error { return nil }
+func (n *node) OnExit() error  { return nil }
+func (n *node) Visit() error   { return nil }
+
+func (n *node) Transform(uint) error { return nil }
+func (n *node) ConvertTo(uint) error { return nil }
+
+func (n *node) Tag() string     { return n.tag }
+func (n *node) IsDirty() bool   { return n.dirty }
+func (n *node) SetDirty(d bool) { n.dirty = d }
+
+//GetShader returns program unless
+//typ == gl.FRAGMENT_SHADER || gl.VERTEX_SHADER
+func (n *node) GetShader(typ uint) uint {
+	switch typ {
+	case gl.FRAGMENT_SHADER:
+		return n.fsh
+	case gl.VERTEX_SHADER:
+		return n.vsh
+	default:
+		return n.prog
+	}
+	return 0
 }
-func (n *node) ConvertTo(uint) error {
-	n.Lock()
-	defer n.Unlock()
-	return nil
+
+//SetShader sets program unless
+//typ == gl.FRAGMENT_SHADER || gl.VERTEX_SHADER
+func (n *node) SetShader(s, typ uint) {
+	switch typ {
+	case gl.FRAGMENT_SHADER:
+		n.fsh = s
+	case gl.VERTEX_SHADER:
+		n.vsh = s
+	default:
+		n.prog = s
+		return
+	}
+	n.prog = Program(n.fsh, n.vsh)
 }
+
+func (n *node) SetParent(p Node) { n.parent = p }
+func (n *node) GetParent() Node  { return n.parent }
 
 func (n *node) AddChild(tag string, child Node) {
 	n.Lock()

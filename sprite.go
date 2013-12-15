@@ -13,7 +13,7 @@ type Sprite interface {
 	Node
 }
 type sprite struct {
-	node
+	*node
 	image.NRGBA
 }
 
@@ -23,13 +23,14 @@ func NewSprite(id string, r io.Reader) (*sprite, error) {
 	if err != nil {
 		return nil, err
 	}
-	s := &sprite{*NewNode(id), *image.NewNRGBA(img.Bounds())}
+	s := &sprite{NewNode(id), *image.NewNRGBA(img.Bounds())}
 	bounds := s.Bounds()
 	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			s.Set(x, y, img.At(x, y))
 		}
 	}
+
 	return s, nil
 }
 

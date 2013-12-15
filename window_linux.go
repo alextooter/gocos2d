@@ -17,9 +17,10 @@ func errorCallback(err glfw.ErrorCode, desc string) {
 	log.Printf("%v: %v\n", err, desc)
 }
 func init() {
-	runtime.LockOSThread()
+
 }
 func (w *window) init() {
+	runtime.LockOSThread()
 	glfw.SetErrorCallback(errorCallback)
 	if !glfw.Init() {
 		println("glfw init failure")
