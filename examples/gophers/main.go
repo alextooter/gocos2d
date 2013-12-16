@@ -1,17 +1,12 @@
 //http://mortdeus.mit-license.org/
 package main
 
-import (
-	"fmt"
-	"gocos2d.org"
-	"os"
-)
+import "gocos2d.org/sdk"
 
-var dir = gocos2d.Dirctor
-var lvl1 = new(Level)
-var groundhog = new(Groundhog)
+var dir = gocos2d.Director
 
 func main() {
+	dir.Title = "Gophers"
 	Init()
 	for dir.Running {
 		dir.Update()
@@ -21,14 +16,9 @@ func main() {
 
 }
 func Init() {
-	gocos2d.AppID = "Gophers"
 	dir.Init()
-
-	hog, err := NewGroundhog()
-	if err != nil {
-		panic(err)
-	}
+	hog := NewGroundhog()
 	lvl1 := NewLevel()
-	lvl1.AddChild(hog)
+	lvl1.AddChild("global", hog)
 	dir.Push(lvl1)
 }

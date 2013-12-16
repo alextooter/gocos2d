@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"gocos2d.org"
+	"gocos2d.org/sdk"
 	"os"
 )
 
@@ -10,20 +9,22 @@ type groundhog struct {
 	gocos2d.Sprite
 }
 
-func NewGroundhog() (*groundhog, error) {
-	fd := os.Open("img/groundhog.png")
-	return groundhog{gocos2d.NewSprite("groundhog", "img/groundhog.png")}
+func NewGroundhog() *groundhog {
+	img, err := os.Open("img/gopher.png")
+	if err != nil {
+		panic(err)
+	}
+	return &groundhog{gocos2d.NewSprite("groundhog", img)}
 }
-
-func (gh *groundhog) Update() {
-	fmt.Println("groundhog update")
+func (g *groundhog) Update() error {
+	return nil
 }
-func (gh *groundhog) Draw() {
-	fmt.Println("groundhog draw")
+func (g *groundhog) Draw() error {
+	return nil
 }
-func (gh *groundhog) OnEnter() {
-	fmt.Println("groundhog onenter")
+func (g *groundhog) OnEnter() error {
+	return nil
 }
-func (gh *groundhog) OnExit() {
-	fmt.Println("groundhog onexit")
+func (g *groundhog) OnExit() error {
+	return nil
 }
