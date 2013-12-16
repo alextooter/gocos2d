@@ -65,9 +65,23 @@ func NewNode(tag string) *node {
 		lookup:   make(map[string]int, 0)}
 }
 
-func (n *node) Cleanup() error { return nil }
+func (n *node) Cleanup() error {
+	n.Lock()
+	defer n.Unlock()
+
+	for _, child := range n.children {
+		if err := child.Update(); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
 
 func (n *node) Update() error {
+	n.Lock()
+	defer n.Unlock()
+
 	if !n.IsDirty() {
 		return nil
 	}
@@ -80,6 +94,9 @@ func (n *node) Update() error {
 	return nil
 }
 func (n *node) Draw() error {
+	n.Lock()
+	defer n.Unlock()
+
 	if !n.IsDirty() {
 		return nil
 	}
@@ -106,6 +123,9 @@ func (n *node) SetDirty(d bool) { n.dirty = d }
 //GetShader returns program unless
 //typ == gl.FRAGMENT_SHADER || gl.VERTEX_SHADER
 func (n *node) GetShader(typ uint) uint {
+	n.Lock()
+	defer n.Unlock()
+
 	switch typ {
 	case gl.FRAGMENT_SHADER:
 		return n.fsh
@@ -120,6 +140,9 @@ func (n *node) GetShader(typ uint) uint {
 //SetShader sets program unless
 //typ == gl.FRAGMENT_SHADER || gl.VERTEX_SHADER
 func (n *node) SetShader(s, typ uint) {
+	n.Lock()
+	defer n.Unlock()
+
 	switch typ {
 	case gl.FRAGMENT_SHADER:
 		n.fsh = s

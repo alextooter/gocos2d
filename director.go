@@ -2,6 +2,7 @@
 package gocos2d
 
 import (
+	//gl "github.com/mortdeus/egles/es2"
 	"sync"
 )
 
@@ -9,10 +10,10 @@ import (
 It is used to initialize a openGL context and It maintains a stack of scenes.
 You are able to update and draw your scenes directly by calling Director.Update
 and Director.Draw in your game loop.*/
-var Director *director
+var Director = new(director)
 
 type director struct {
-	AppId string
+	Title string
 	sync.Mutex
 	window
 	Running bool
@@ -25,9 +26,8 @@ type director struct {
 func (d *director) Init() {
 	d.Lock()
 	defer d.Unlock()
-
-	if d.AppId == "" {
-		d.AppId = "gocos2d"
+	if d.Title == "" {
+		d.Title = "gocos2d"
 	}
 	if d.ActionManager == nil {
 		d.ActionManager = NewActionManager()

@@ -8,8 +8,40 @@ type Shader interface {
 	SetShader(uint, uint)
 }
 
+func NewShader(s string, typ uint) (shader uint) {
+
+	switch typ {
+	case gl.FRAGMENT_SHADER:
+		shader = gl.CreateShader(gl.FRAGMENT_SHADER)
+		gl.ShaderSource(shader, s)
+		gl.CompileShader(shader)
+		if gl.GetShaderiv(shader, gl.COMPILE_STATUS, make([]int32, 1))[0] == 0 {
+			fmt.Printf("Frag:\n%s\n", gl.GetShaderInfoLog(shader, 1000))
+		}
+	case gl.VERTEX_SHADER:
+		shader = gl.CreateShader(gl.VERTEX_SHADER)
+		gl.ShaderSource(shader, s)
+		gl.CompileShader(shader)
+		if gl.GetShaderiv(shader, gl.COMPILE_STATUS, make([]int32, 1))[0] == 0 {
+			fmt.Printf("Vert:\n%s\n", gl.GetShaderInfoLog(shader, 1000))
+		}
+	}
+	return shader
+
+}
+func Program(vsh, fsh uint) uint {
+	p := gl.CreateProgram()
+	gl.AttachShader(p, fsh)
+	gl.AttachShader(p, vsh)
+	gl.LinkProgram(p)
+	if gl.GetProgramiv(p, gl.LINK_STATUS, make([]int32, 1))[0] == 0 {
+		fmt.Printf("Program:\n%s\n", gl.GetProgramInfoLog(p, 1000))
+	}
+	return p
+}
+
 const (
-	SHADER_POSITION_COLOR_FRAG = `
+	POSITION_COLOR_FRAG = `
 
 	    precision lowp float;                      	
 
@@ -20,7 +52,7 @@ const (
         }
     `
 
-	SHADER_POSITION_COLOR_VERT = `
+	POSITION_COLOR_VERT = `
 
 	    uniform mat4 MVPMatrix;
 
@@ -35,7 +67,7 @@ const (
        	}
     `
 
-	SHADER_POSITION_UCOLOR_FRAG = `                                           
+	POSITION_UCOLOR_FRAG = `                                           
 
        	precision lowp float;                        	
 
@@ -46,7 +78,7 @@ const (
        	}
     `
 
-	SHADER_POSITION_UCOLOR_VERT = `                                    
+	POSITION_UCOLOR_VERT = `                                    
 
         attribute vec4 a_pos;                    
 
@@ -63,7 +95,7 @@ const (
         }
     `
 
-	SHADER_POSITION_COLOR_LENGTH_TEXTURE_FRAG = `
+	POSITION_COLOR_LENGTH_TEXTURE_FRAG = `
        
         varying mediump vec4 v_color;
         varying mediump vec2 v_texcoord;
@@ -73,7 +105,7 @@ const (
         }
     `
 
-	SHADER_POSITION_COLOR_LENGTH_TEXTURE_VERT = `
+	POSITION_COLOR_LENGTH_TEXTURE_VERT = `
 
 	    uniform mat4 MVPMatrix;
 
@@ -94,19 +126,19 @@ const (
             	
         }`
 
-	SHADER_POSITION_TEXTURE_FRAG = `
+	POSITION_TEXTURE_FRAG = `
 
         precision lowp float;                      
                                                   
         varying vec2 v_texCoord;                   
-        uniform sampler2D CC_Texture0;             
+        uniform sampler2D Texture0;             
                                                   
         void main(){                                          
-            	gl_FragColor =  texture2D(CC_Texture0, v_texCoord);   
+            	gl_FragColor =  texture2D(Texture0, v_texCoord);   
         }
     `
 
-	SHADER_POSITION_TEXTURE_VERT = `
+	POSITION_TEXTURE_VERT = `
 
 	    uniform mat4 MVPMatrix;
 
@@ -121,7 +153,7 @@ const (
         }
     `
 
-	SHADER_POSITION_TEXTURE_UCOLOR_FRAG = `                                                
+	POSITION_TEXTURE_UCOLOR_FRAG = `                                                
 
         precision lowp float;                        
                                                      
@@ -135,7 +167,7 @@ const (
         }
     `
 
-	SHADER_POSITION_TEXTURE_UCOLOR_VERT = `
+	POSITION_TEXTURE_UCOLOR_VERT = `
 	
 	    uniform mat4 MVPMatrix;
 
@@ -150,7 +182,7 @@ const (
         }
     `
 
-	SHADER_POSITION_TEXTURE_A8COLOR_FRAG = `
+	POSITION_TEXTURE_A8COLOR_FRAG = `
 
         precision lowp float;                        
                                                      
@@ -168,7 +200,7 @@ const (
         }
     `
 
-	SHADER_POSITION_TEXTURE_A8COLOR_VERT = `
+	POSITION_TEXTURE_A8COLOR_VERT = `
 
 	    uniform mat4 MVPMatrix;
 
@@ -186,7 +218,7 @@ const (
         }
     `
 
-	SHADER_POSITION_TEXTURE_COLOR_FRAG = `
+	POSITION_TEXTURE_COLOR_FRAG = `
 
         precision lowp float;                        
                                                      
@@ -199,7 +231,7 @@ const (
         }
     `
 
-	SHADER_POSITION_TEXTURE_COLOR_VERT = `
+	POSITION_TEXTURE_COLOR_VERT = `
 
 	    uniform mat4 MVPMatrix;
 
@@ -217,7 +249,7 @@ const (
         }
     `
 
-	SHADER_POSITION_TEXTURE_COLOR_ALPHATEST_FRAG = `
+	POSITION_TEXTURE_COLOR_ALPHATEST_FRAG = `
 
         precision lowp float;                           
                                                         
@@ -240,7 +272,7 @@ const (
         }
     `
 
-	SHADEREX_SWITCHMASK_FRAG = `
+	EX_SWITCHMASK_FRAG = `
 
         precision lowp float;                            
                                                          
@@ -257,34 +289,3 @@ const (
         }
     `
 )
-
-func NewShader(s string, typ uint) (shader uint) {
-	log := func(s string) {
-		if gl.GetShaderiv(shader, gl.COMPILE_STATUS, make([]int32, 1))[0] == 0 {
-			fmt.Printf("%s:\n%s\n", s, gl.GetShaderInfoLog(shader, 1000))
-		}
-	}
-	switch typ {
-	case gl.FRAGMENT_SHADER:
-		shader = gl.CreateShader(gl.FRAGMENT_SHADER)
-		log("Fragment Shader")
-	case gl.VERTEX_SHADER:
-		shader = gl.CreateShader(gl.VERTEX_SHADER)
-		log("Vertex Shader")
-	}
-	gl.ShaderSource(shader, s)
-	gl.CompileShader(shader)
-
-	return shader
-
-}
-func Program(fsh, vsh uint) uint {
-	p := gl.CreateProgram()
-	gl.AttachShader(p, fsh)
-	gl.AttachShader(p, vsh)
-	gl.LinkProgram(p)
-	if gl.GetProgramiv(p, gl.LINK_STATUS, make([]int32, 1))[0] == 0 {
-		fmt.Printf("Program:\n%s\n", gl.GetProgramInfoLog(p, 1000))
-	}
-	return p
-}

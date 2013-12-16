@@ -16,9 +16,7 @@ type window struct {
 func errorCallback(err glfw.ErrorCode, desc string) {
 	log.Printf("%v: %v\n", err, desc)
 }
-func init() {
 
-}
 func (w *window) init() {
 	runtime.LockOSThread()
 	glfw.SetErrorCallback(errorCallback)
@@ -33,7 +31,7 @@ func (w *window) init() {
 	glfw.WindowHint(glfw.ContextVersionMajor, 2)
 	glfw.WindowHint(glfw.ContextVersionMinor, 0)
 	var err error
-	w.Window, err = glfw.CreateWindow(w.Width, w.Height, Director.AppId, nil, nil)
+	w.Window, err = glfw.CreateWindow(w.Width, w.Height, Director.Title, nil, nil)
 	if err != nil {
 		panic(err)
 	}
