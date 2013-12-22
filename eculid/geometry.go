@@ -12,10 +12,8 @@ func (p Point) Equals(p2 Point) bool {
 	return mathgl.FloatEqual32(p.x, p2.x) && mathgl.FloatEqual32(p.y, p2.y)
 }
 func (p Point) FuzzyEquals(p2 Point, v float32) bool {
-	if p.x-v <= p2.x && p2.x <= p.x+v {
-		if p.y-v <= p2.y && p2.y <= p.y+v {
-			return true
-		}
+	if p.x-v <= p2.x && p2.x <= p.x+v && p.y-v <= p2.y && p2.y <= p.y+v {
+		return true
 	}
 	return false
 }
@@ -32,57 +30,33 @@ func (p Point) RotateByAngle(pivot Point, angle float32) Point {
 	piv := mathgl.Vec2f{pivot.x, pivot.y}
 	v := [2]float32(piv.Add((mathgl.Vec2f{p.x, p.y}).Sub(piv)))
 	return (Point{v[0], v[1]}).Rotate(ForAngle(angle))
-
 }
 
-func cmp(in struct{ s, e float32 }, op string) bool {
-	x, y := in.s, in.e
-	switch op {
-	case "<":
-		return x < y
-	case "<=":
-		return x <= y
-	case ">":
-		return x > y
-	case ">=":
-		return x >= y
-	case "==":
-		return x == y
-	}
-	panic("geometry.go/comp(): invalid string input")
-}
 func is1DimensionSegOverlap(a, b, c, d float32, s_e *struct{ s, e float32 }) bool {
 	abMin, abMax := mathgl.Fmin32(a, b), mathgl.Fmax32(a, b)
 	cdMin, cdMax := mathgl.Fmin32(c, d), mathgl.Fmax32(c, d)
-
 	ltab := [12]struct{ s, e float32 }{
-		//     0               1               2
-		{abMin, abMax}, {abMin, cdMin}, {abMin, cdMax},
-		//     3               4               5
-		{abMax, abMin}, {abMax, cdMin}, {abMax, cdMax},
-		//     6               7               8
-		{cdMin, cdMax}, {cdMin, abMin}, {cdMin, abMax},
-		//     9               10              11
-		{cdMax, cdMin}, {cdMax, abMin}, {cdMax, abMax},
+		{abMin, abMax}, {abMin, cdMin}, {abMin, cdMax}, {abMax, abMin},
+		{abMax, cdMin}, {abMax, cdMax}, {cdMin, cdMax}, {cdMin, abMin},
+		{cdMin, abMax}, {cdMax, cdMin}, {cdMax, abMin}, {cdMax, abMax},
 	}
 	switch {
-	case cmp(ltab[4], "<") || cmp(ltab[10], "<"):
-		s_e = nil
-	case cmp(ltab[1], ">=") && cmp(ltab[2], "<="):
-		if cmp(ltab[11], "<") {
+	case abMax < cdMin || cdMax < abMin:
+		return false
+	case abMin >= cdMin && abMin <= cdMax:
+		switch cdMax < abMax {
+		case true:
 			*s_e = ltab[5]
-		} else {
+		default:
 			*s_e = ltab[0]
 		}
-	case cmp(ltab[4], ">=") && cmp(ltab[5], ">="):
+	case abMax >= cdMin && abMax >= cdMax:
 		*s_e = ltab[8]
 	default:
 		*s_e = ltab[6]
 	}
-	if s_e == nil {
-		return false
-	}
 	return true
+
 }
 func IsLineIntersect(a, b, c, d Point, s_t *struct{ s, t float32 }) bool {
 	if (a.x == b.x && a.y == b.y) || (c.x == d.x && c.y == d.y) {
@@ -92,9 +66,7 @@ func IsLineIntersect(a, b, c, d Point, s_t *struct{ s, t float32 }) bool {
 	if denom == 0 {
 		return false
 	}
-	*s_t = struct{ s, t float32 }{
-		cross2Vect(c, d, c, a) / denom,
-		cross2Vect(a, b, c, a) / denom}
+	*s_t = struct{ s, t float32 }{cross2Vect(c, d, c, a) / denom, cross2Vect(a, b, c, a) / denom}
 	return true
 }
 
