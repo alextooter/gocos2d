@@ -3,6 +3,8 @@ package eculid
 import "math"
 import "github.com/mortdeus/mathgl"
 
+//TODO(mortdeus): Write tests for eculid objects.
+
 type Point struct{ x, y float32 }
 
 func (p *Point) SetPoint(x, y float32) { p.x, p.y = x, y }
@@ -32,41 +34,72 @@ func (p Point) RotateByAngle(pivot Point, angle float32) Point {
 	return (Point{v[0], v[1]}).Rotate(ForAngle(angle))
 
 }
-func is1DimensionSegOverlap(a, b, c, d float32) (stat bool, s, e float32) {
+
+func cmp(in struct{ s, e float32 }, op string) bool {
+	x, y := in.s, in.e
+	switch op {
+	case "<":
+		return x < y
+	case "<=":
+		return x <= y
+	case ">":
+		return x > y
+	case ">=":
+		return x >= y
+	case "==":
+		return x == y
+	}
+	panic("geometry.go/comp(): invalid string input")
+}
+func is1DimensionSegOverlap(a, b, c, d float32, s_e *struct{ s, e float32 }) bool {
 	abMin, abMax := mathgl.Fmin32(a, b), mathgl.Fmax32(a, b)
 	cdMin, cdMax := mathgl.Fmin32(c, d), mathgl.Fmax32(c, d)
-	stat = true
+
+	ltab := [12]struct{ s, e float32 }{
+		//     0               1               2
+		{abMin, abMax}, {abMin, cdMin}, {abMin, cdMax},
+		//     3               4               5
+		{abMax, abMin}, {abMax, cdMin}, {abMax, cdMax},
+		//     6               7               8
+		{cdMin, cdMax}, {cdMin, abMin}, {cdMin, abMax},
+		//     9               10              11
+		{cdMax, cdMin}, {cdMax, abMin}, {cdMax, abMax},
+	}
 	switch {
-	case abMax < cdMin || cdMax < abMin:
-		stat = false
-	case abMin >= cdMin && abMin <= cdMax:
-		if cdMax < abMax {
-			s, e = abMax, cdMax
+	case cmp(ltab[4], "<") || cmp(ltab[10], "<"):
+		s_e = nil
+	case cmp(ltab[1], ">=") && cmp(ltab[2], "<="):
+		if cmp(ltab[11], "<") {
+			*s_e = ltab[5]
 		} else {
-			s, e = abMin, abMax
+			*s_e = ltab[0]
 		}
-	case abMax >= cdMin && abMax <= cdMax:
-		s, e = cdMin, abMax
+	case cmp(ltab[4], ">=") && cmp(ltab[5], ">="):
+		*s_e = ltab[8]
 	default:
-		s, e = cdMin, cdMax
+		*s_e = ltab[6]
 	}
-	return
+	if s_e == nil {
+		return false
+	}
+	return true
 }
-func IsLineIntersect(a, b, c, d Point) (stat bool, s, t float32) {
+func IsLineIntersect(a, b, c, d Point, s_t *struct{ s, t float32 }) bool {
 	if (a.x == b.x && a.y == b.y) || (c.x == d.x && c.y == d.y) {
-		stat = false
+		return false
 	}
-	if denom := cross2Vect(a, b, c, d); denom != 0 {
-		stat = true
-		s = cross2Vect(c, d, c, a) / denom
-		t = cross2Vect(a, b, c, a) / denom
+	denom := cross2Vect(a, b, c, d)
+	if denom == 0 {
+		return false
 	}
-	return
+	*s_t = struct{ s, t float32 }{
+		cross2Vect(c, d, c, a) / denom,
+		cross2Vect(a, b, c, a) / denom}
+	return true
 }
 
 func check(f float32) bool { return f == 0 }
 func IsLineParallel(a, b, c, d Point) bool {
-
 	switch {
 	case (a.x == b.x && a.y == b.y) || c.x == d.x && c.y == d.y:
 		return false
@@ -77,7 +110,6 @@ func IsLineParallel(a, b, c, d Point) bool {
 	default:
 		return true
 	}
-
 }
 func IsLineOverlap(a, b, c, d Point) bool {
 	switch {
@@ -91,26 +123,32 @@ func IsLineOverlap(a, b, c, d Point) bool {
 		return false
 	}
 }
-func IsSegmentOverlap(a, b, c, d Point) (stat bool, s, e Point) {
-	var stata, statb bool
+func IsSegmentOverlap(a, b, c, d Point, s_e []Point) bool {
 	if !IsLineOverlap(a, b, c, d) {
-		return
+		return false
 	}
-	stata, s.x, e.x = is1DimensionSegOverlap(a.x, b.x, c.x, d.x)
-	statb, s.y, e.y = is1DimensionSegOverlap(a.y, b.y, c.y, d.y)
-	stat = stata && statb
-	return
+	vs := struct{ s, e float32 }{s_e[0].x, s_e[1].x}
+	ve := struct{ s, e float32 }{s_e[0].y, s_e[1].y}
+	defer func() {
+		s_e[0].x, s_e[0].y = vs.s, vs.e
+		s_e[1].x, s_e[1].y = ve.s, vs.e
+
+	}()
+	return is1DimensionSegOverlap(a.x, b.x, c.x, d.x, &vs) &&
+		is1DimensionSegOverlap(a.y, b.y, c.y, d.y, &ve)
 }
 func IsSegmentIntersect(a, b, c, d Point) bool {
-	stat, s, t := IsLineIntersect(a, b, c, d)
-	if stat && (s >= 0 && s <= 1 && s >= 0 && t <= 1) {
+	s_t := struct{ s, t float32 }{}
+	if IsLineIntersect(a, b, c, d, &s_t) &&
+		(s_t.s >= 0 && s_t.s <= 1 && s_t.s >= 0 && s_t.t <= 1) {
 		return true
 	}
 	return false
 }
 func IntersectPoint(a, b, c, d Point) Point {
-	if stat, s, _ := IsLineIntersect(a, b, c, d); stat {
-		return Point{a.x + s*(b.x-a.x), a.y + s*(b.y-a.y)}
+	s_t := struct{ s, t float32 }{}
+	if IsLineIntersect(a, b, c, d, &s_t) {
+		return Point{a.x + s_t.s*(b.x-a.x), a.y + s_t.s*(b.y-a.y)}
 	}
 	return Point{0, 0}
 
@@ -130,8 +168,7 @@ func (p Point) CompOp(f func(float32) float32) Point { return Point{f(p.x), f(p.
 
 func (p Point) ClampPoint(min, max Point) Point {
 	return Point{
-		mathgl.Clampf(p.x, min.x, max.x),
-		mathgl.Clampf(p.y, min.y, max.y)}
+		mathgl.Clampf(p.x, min.x, max.x), mathgl.Clampf(p.y, min.y, max.y)}
 }
 func (p Point) Project(p2 Point) Point {
 	return func(f float32) Point { return Point{p2.x * f, p2.y * f} }(p.Dot(p2) / p2.Dot(p2))
