@@ -193,28 +193,22 @@ func (r Rect) IntersectsRect(r2 Rect) bool {
 		r.MaxY() < r2.MinY() ||
 		r2.MaxY() < r.MinY())
 }
-func (r Rect) UnionWithRect(r2 Rect) Rect {
-	swap := func(x, y *float32) {
+func swapf32(x, y *float32) {
+	if *x < *y {
 		tmp := x
 		x = y
 		y = tmp
 	}
-
+}
+func (r Rect) UnionWithRect(r2 Rect) Rect {
 	L, R, T, B := r.x, (r.x + r.w), (r.y + r.h), (r.y)
 	L2, R2, T2, B2 := r2.x, (r2.x + r2.w), (r2.y + r2.h), (r2.y)
 
-	if R < L {
-		swap(&R, &L)
-	}
-	if T < B {
-		swap(&T, &B)
-	}
-	if R2 < L2 {
-		swap(&R2, &L2)
-	}
-	if T2 < B2 {
-		swap(&T2, &B2)
-	}
+	swapf32(&R, &L)
+	swapf32(&T, &B)
+	swapf32(&R2, &L2)
+	swapf32(&T2, &B2)
+
 	L3, R3 := mathgl.Fmin32(L, L2), mathgl.Fmax32(R, R2)
 	T3, B3 := mathgl.Fmax32(T, T2), mathgl.Fmin32(B, B2)
 	return Rect{Point{L3, B3}, Size{R3 - L3, T3 - B3}}
