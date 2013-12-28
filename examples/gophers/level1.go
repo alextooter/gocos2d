@@ -15,16 +15,3 @@ func NewLevel() *Level {
 func (l *Level) AddChild(layer string, n gocos2d.Node) {
 	l.GetChild(layer).AddChild(n.Tag(), n)
 }
-
-func (l *Level) Update() error {
-	return nil
-}
-func (l *Level) Draw() error {
-	return nil
-}
-func (l *Level) OnEnter() error {
-	return nil
-}
-func (l *Level) OnExit() error {
-	return nil
-}

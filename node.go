@@ -5,15 +5,10 @@ import gl "github.com/mortdeus/egles/es2"
 
 type Node interface {
 	sync.Locker
-	Rectangle
-	Rotation
-	Position
-	Anchor
-	Camera
-	Skew
-	Scale
-	ZOrder
-	Shader
+
+	Tag() string
+	IsVisible() bool
+	IsDirty() (bool, bool)
 
 	Update() error
 	Draw() error
@@ -21,32 +16,50 @@ type Node interface {
 	OnExit() error
 	Cleanup() error
 	Visit() error
+
 	Transform(uint) error
-	ConvertTo(uint) error
+
+	WorldToNodeTransform() AffineTransform
+	NodeToWorldTransform() AffineTransform
+	ParentToNodeTransform() AffineTransform
+	NodeToParentTransform() AffineTransform
+
+	ConvertTo(struct{ X, Y float32 }, uint) (struct{ X, Y float32 }, error)
 
 	GetParent() Node
 	SetParent(Node)
-
-	Tag() string
-	IsDirty() bool
-	SetDirty(bool)
 
 	AddChild(string, Node)
 	GetChild(string) Node
 	RemoveChild(string)
 }
-type node struct {
-	tag   string
-	dirty bool
 
-	anchor
-	rect
-	rot
-	camera
-	skew
-	scale
-	zOrder
-	pos
+const (
+	WorldSpace = iota
+	NodeSpace
+	AnchorRelative
+)
+
+type node struct {
+	sync.Mutex
+
+	tag string
+
+	dirty,
+	transformDirty bool
+
+	visible bool
+
+	ignoreAnchorPointForPosition,
+
+	anchor struct{ uv, pt Point }
+	rect   Rect
+	rot    float32
+	skew   Point
+	scale  float32
+	zOrder float32
+	pos    Point
+	size   Size
 	//grid
 
 	prog, fsh, vsh     uint
@@ -55,14 +68,15 @@ type node struct {
 	parent   Node
 	children []Node
 	lookup   map[string]int
-	sync.Mutex
 }
 
 func NewNode(tag string) *node {
-	return &node{
+	n := &node{
 		tag:      tag,
 		children: make([]Node, 0),
-		lookup:   make(map[string]int, 0)}
+		lookup:   make(map[string]int, 0),
+	}
+	return n
 }
 
 func (n *node) Cleanup() error {
@@ -82,7 +96,7 @@ func (n *node) Update() error {
 	n.Lock()
 	defer n.Unlock()
 
-	if !n.IsDirty() {
+	if yes, _ := n.IsDirty(); yes {
 		return nil
 	}
 	for _, child := range n.children {
@@ -97,9 +111,9 @@ func (n *node) Draw() error {
 	n.Lock()
 	defer n.Unlock()
 
-	if !n.IsDirty() {
-		return nil
-	}
+	//if !n.IsDirty() {
+	//	return nil
+	//}
 	for _, child := range n.children {
 		if err := child.Draw(); err != nil {
 			return err
@@ -114,11 +128,34 @@ func (n *node) OnExit() error  { return nil }
 func (n *node) Visit() error   { return nil }
 
 func (n *node) Transform(uint) error { return nil }
-func (n *node) ConvertTo(uint) error { return nil }
+func (n *node) ConvertTo(pt struct{ X, Y float32 }, spaceType uint) (struct{ X, Y float32 }, error) {
+	switch spaceType {
+	case NodeSpace:
+		//p := Point{pt.X, pt.Y}
 
-func (n *node) Tag() string     { return n.tag }
-func (n *node) IsDirty() bool   { return n.dirty }
-func (n *node) SetDirty(d bool) { n.dirty = d }
+		if (spaceType & AnchorRelative) != 0 {
+
+		}
+	case WorldSpace:
+		if (spaceType & AnchorRelative) != 0 {
+			n.ConvertTo(pt, WorldSpace)
+		}
+
+	}
+	panic("unimplemented")
+	return Point{0, 0}, nil
+}
+
+func (n *node) Tag() string {
+	return n.tag
+}
+
+func (n *node) IsDirty() (bool, transform bool) {
+	return n.dirty, n.transformDirty
+}
+func (n *node) IsVisible() bool {
+	return n.visible
+}
 
 //GetShader returns program unless
 //typ == gl.FRAGMENT_SHADER || gl.VERTEX_SHADER
@@ -197,4 +234,24 @@ func (n *node) RemoveChild(tag string) {
 		n.children[i] = nil
 		delete(n.lookup, tag)
 	}
+}
+
+func (n *node) NodeToWorldTransform() AffineTransform {
+	return nil
+}
+func (n *node) WorldToNodeTransform() AffineTransform {
+	return nil
+}
+func (n *node) NodeToParentTransform() AffineTransform {
+	if n.transformDirty {
+		//x, y := n.pos.X, n.pos.X
+
+		//if n.ignoreAnchorPointForPosition {
+
+		//}
+	}
+	return nil
+}
+func (n *node) ParentToNodeTransform() AffineTransform {
+	return nil
 }

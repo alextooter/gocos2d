@@ -8,8 +8,7 @@ type layer struct {
 	*node
 }
 
-func NewLayer(tag string, z float64) *layer {
+func NewLayer(tag string, z float32) *layer {
 	l := &layer{NewNode(tag)}
-	l.SetZ(z)
 	return l
 }

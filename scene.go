@@ -11,7 +11,6 @@ type scene struct {
 
 func NewScene(tag string) *scene {
 	s := &scene{NewNode(tag)}
-	s.SetAnchor(0.5, 0.5)
 	return s
 }
 

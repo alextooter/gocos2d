@@ -2,7 +2,8 @@
 package gocos2d
 
 import (
-	//gl "github.com/mortdeus/egles/es2"
+	gl "github.com/mortdeus/egles/es2"
+	"github.com/mortdeus/mathgl"
 	"sync"
 )
 
@@ -21,6 +22,8 @@ type director struct {
 	Scheduler
 	curScene Scene
 	stack    []Scene
+
+	projection mathgl.Mat4f
 }
 
 func (d *director) Init() {
@@ -38,6 +41,15 @@ func (d *director) Init() {
 	d.Running = true
 	d.stack = make([]Scene, 0)
 	d.window.init()
+
+	halfW, halfH := float32(d.Width)*0.5, float32(d.Height)*0.5
+
+	d.projection = mathgl.Ortho2D(
+		-halfW, halfW,
+		-halfH, halfH).Mul4(mathgl.Translate3D(-halfW, -halfH, 0))
+
+	gl.Disable(gl.DEPTH_TEST)
+	gl.DepthMask(false)
 
 }
 func (d *director) Push(s Scene) {
@@ -90,6 +102,8 @@ func (d *director) Update() {
 func (d *director) Draw() {
 	d.Lock()
 	defer d.Unlock()
+
+	d.curScene.Draw()
 }
 func (d *director) SetActionManager(am ActionManager) {
 	d.Lock()

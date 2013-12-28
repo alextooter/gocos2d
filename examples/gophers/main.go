@@ -2,10 +2,13 @@
 package main
 
 import "gocos2d.org/sdk"
+import "github.com/davecheney/profile"
 
 var dir = gocos2d.Director
 
 func main() {
+	defer profile.Start(profile.CPUProfile).Stop()
+	
 	dir.Title = "Gophers"
 	Init()
 	for dir.Running {

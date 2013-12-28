@@ -54,7 +54,7 @@ const (
 
 	POSITION_COLOR_VERT = `
 
-	    uniform mat4 MVPMatrix;
+	    uniform mat4 uMVP;
 
        	attribute vec4 a_pos;                
        	attribute vec4 a_color;
@@ -62,7 +62,7 @@ const (
        	varying lowp vec4 v_fragColor;        
        	                                          
        	void main(){                                         
-       	    	gl_Position = MVPMatrix * a_pos;   
+       	    	gl_Position = uMVP * a_pos;   
        	    	v_fragColor = a_color;             
        	}
     `
@@ -84,12 +84,12 @@ const (
 
         uniform vec4 u_color;                 
         uniform float u_pointSize;               
-        uniform mat4 MVPMatrix;
+        uniform mat4 uMVP;
 
         varying lowp vec4 v_fragColor;       
                                                  
         void main(){                                        
-        	gl_Position = MVPMatrix * a_pos;    
+        	gl_Position = uMVP * a_pos;    
         	gl_PointSize = u_pointSize;          
         	v_fragColor = u_color;           
         }
@@ -107,7 +107,7 @@ const (
 
 	POSITION_COLOR_LENGTH_TEXTURE_VERT = `
 
-	    uniform mat4 MVPMatrix;
+	    uniform mat4 uMVP;
 
         attribute mediump vec4 a_pos;
         attribute mediump vec2 a_texcoord;
@@ -122,7 +122,7 @@ const (
         	//vec4(a_color.rgb * a_color.a, a_color.a);	 	
 
         	v_texcoord = a_texcoord;
-         	gl_Position = MVPMatrix * a_pos;
+         	gl_Position = uMVP * a_pos;
             	
         }`
 
@@ -131,16 +131,16 @@ const (
         precision lowp float;                      
                                                   
         varying vec2 v_texCoord;                   
-        uniform sampler2D Texture0;             
+        uniform sampler2D Tex0;             
                                                   
         void main(){                                          
-            	gl_FragColor =  texture2D(Texture0, v_texCoord);   
+            	gl_FragColor =  texture2D(Tex0, v_texCoord);   
         }
     `
 
 	POSITION_TEXTURE_VERT = `
 
-	    uniform mat4 MVPMatrix;
+	    uniform mat4 uMVP;
 
         attribute vec4 a_pos;                   
         attribute vec2 a_texCoord;                  
@@ -148,7 +148,7 @@ const (
         varying mediump vec2 v_texCoord;           
                                                    
         void main(){                                          
-            gl_Position = MVPMatrix * a_pos;  
+            gl_Position = uMVP * a_pos;  
             v_texCoord = a_texCoord;               
         }
     `
@@ -158,18 +158,18 @@ const (
         precision lowp float;                        
                                                      
         uniform vec4 u_color;                        
-        uniform sampler2D CC_Texture0; 
+        uniform sampler2D Tex0; 
 
         varying vec2 v_texCoord;                     
                                                                                                    
         void main(){                                            
-            	gl_FragColor =  texture2D(CC_Texture0, v_texCoord) * u_color;    
+            	gl_FragColor =  texture2D(Tex0, v_texCoord) * u_color;    
         }
     `
 
 	POSITION_TEXTURE_UCOLOR_VERT = `
 	
-	    uniform mat4 MVPMatrix;
+	    uniform mat4 uMVP;
 
         attribute vec4 a_pos;                   
         attribute vec2 a_texCoord;                   
@@ -177,7 +177,7 @@ const (
         varying mediump vec2 v_texCoord;             
                                                      
         void main(){                                            
-        	gl_Position = MVPMatrix * a_pos;  
+        	gl_Position = uMVP * a_pos;  
             v_texCoord = a_texCoord;                 
         }
     `
@@ -188,7 +188,7 @@ const (
                                                      
         varying vec4 v_fragColor;                
         varying vec2 v_texCoord;                     
-        uniform sampler2D CC_Texture0;                 
+        uniform sampler2D Tex0;                 
                                                      
         void main(){                                            
             gl_FragColor = vec4(
@@ -196,13 +196,13 @@ const (
                 v_fragColor.rgb,
 
                 // A from texture and uniform      
-                v_fragColor.a * texture2D(CC_Texture0, v_texCoord).a);                                         
+                v_fragColor.a * texture2D(Tex0, v_texCoord).a);                                         
         }
     `
 
 	POSITION_TEXTURE_A8COLOR_VERT = `
 
-	    uniform mat4 MVPMatrix;
+	    uniform mat4 uMVP;
 
         attribute vec4 a_pos;                   
         attribute vec2 a_texCoord;                   
@@ -212,7 +212,7 @@ const (
         varying mediump vec2 v_texCoord;             
                                                      
         void main(){                                            
-        	gl_Position = MVPMatrix * a_pos;  	  
+        	gl_Position = uMVP * a_pos;  	  
             v_fragColor = a_color;               
             v_texCoord = a_texCoord;                 
         }
@@ -233,7 +233,7 @@ const (
 
 	POSITION_TEXTURE_COLOR_VERT = `
 
-	    uniform mat4 MVPMatrix;
+	    uniform mat4 uMVP;
 
         attribute vec4 a_pos;                   
         attribute vec2 a_texCoord;                   
@@ -243,7 +243,7 @@ const (
         varying mediump vec2 v_texCoord;             
                                                      
         void main(){                                            
-        	gl_Position = MVPMatrix * a_pos;  
+        	gl_Position = uMVP * a_pos;  
             v_fragColor = a_color;               
             v_texCoord = a_texCoord;                 
         }

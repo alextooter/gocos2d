@@ -16,15 +16,3 @@ func NewGroundhog() *groundhog {
 	}
 	return &groundhog{gocos2d.NewSprite("groundhog", img)}
 }
-func (g *groundhog) Update() error {
-	return nil
-}
-func (g *groundhog) Draw() error {
-	return nil
-}
-func (g *groundhog) OnEnter() error {
-	return nil
-}
-func (g *groundhog) OnExit() error {
-	return nil
-}
